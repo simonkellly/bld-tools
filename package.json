@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
+  "homepage": "http://simonkellly.github.io/bld-tools/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
