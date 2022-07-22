@@ -9,12 +9,12 @@ export type Edge = FixedSizeArray<EdgeSticker, 2>;
 export type Corner = FixedSizeArray<CornerSticker, 3>;
 
 export const Faces = {
-    U: "white",
-    L: "orange-500",
-    F: "green-500",
-    R: "red-500",
-    B: "blue-500",
-    D: "yellow-400",
+    U: "bg-white",
+    L: "bg-orange-500",
+    F: "bg-green-500",
+    R: "bg-red-500",
+    B: "bg-blue-500",
+    D: "bg-yellow-400",
 }
 
 

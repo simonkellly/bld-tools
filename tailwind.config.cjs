@@ -9,10 +9,4 @@ module.exports = {
   daisyui: {
     themes: ["retro"],
   },
-  safelist: [
-    {
-      pattern: /bg-(red|green|blue|orange|yellow)-(100|200|300|400|500)/,
-    },
-    "bg-white",
-  ]
 }

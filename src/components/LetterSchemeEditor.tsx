@@ -17,7 +17,7 @@ const StickerButton = (props: StickerButtonProps) => {
   return (
     <button
       onClick={props.onClick}
-      className={`btn text-black btn-block aspect-square bg-${props.color} border-0`}
+      className={`btn text-black btn-block aspect-square ${props.color} border-0`}
     >
       {props.text}
     </button>
