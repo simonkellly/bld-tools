@@ -10,11 +10,9 @@ module.exports = {
     themes: ["retro"],
   },
   safelist: [
-    "*-white",
-    "*-orange-500",
-    "*-green-500",
-    "*-red-500",
-    "*-blue-500",
-    "*-yellow-400",
+    {
+      pattern: /bg-(red|green|blue|orange|yellow)-(100|200|300|400|500)/,
+    },
+    "bg-white",
   ]
 }
