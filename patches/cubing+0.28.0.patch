@@ -1,5 +1,5 @@
 diff --git a/node_modules/cubing/dist/esm/bluetooth/index.js b/node_modules/cubing/dist/esm/bluetooth/index.js
-index 571dacc..971c871 100644
+index 571dacc..397bc8c 100644
 --- a/node_modules/cubing/dist/esm/bluetooth/index.js
 +++ b/node_modules/cubing/dist/esm/bluetooth/index.js
 @@ -254,7 +254,7 @@ async function unsafeDecryptBlock(key, ciphertextBlock) {
@@ -84,7 +84,7 @@ index 571dacc..971c871 100644
        });
 +      this.lastMoveCounter = physicalState.moveCounter();
 +    } catch (error) {
-+      debuglog(error);
++      debugLog(error);
      }
 -    this.dispatchOrientation({
 -      timeStamp: physicalState.timeStamp,
@@ -95,15 +95,7 @@ index 571dacc..971c871 100644
    }
    async getBattery() {
      return new Uint8Array(await this.readActualAngleAndBatteryCharacteristic())[7];
-@@ -823,6 +828,7 @@ var giiKERConfig = {
- 
- // src/cubing/bluetooth/smart-puzzle/gocube.ts
- import { Quaternion as Quaternion3 } from "three";
-+import { debuglog } from "util";
- var UUIDs3 = {
-   goCubeService: "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
-   goCubeStateCharacteristic: "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
-@@ -885,7 +891,7 @@ var GoCube = class extends BluetoothPuzzle {
+@@ -885,7 +890,7 @@ var GoCube = class extends BluetoothPuzzle {
      this.alg = alg || new Alg();
    }
    resetOrientation() {
@@ -112,7 +104,7 @@ index 571dacc..971c871 100644
      this.currentQuat = new Quaternion3(0, 0, 0, 1);
      this.lastTarget = new Quaternion3(0, 0, 0, 1);
    }
-@@ -912,7 +918,7 @@ var GoCube = class extends BluetoothPuzzle {
+@@ -912,7 +917,7 @@ var GoCube = class extends BluetoothPuzzle {
        const quat = new Quaternion3(coords[0], coords[1], coords[2], coords[3]);
        this.lastRawQuat = quat.clone();
        if (!this.homeQuatInverse) {
