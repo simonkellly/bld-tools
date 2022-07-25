@@ -1,0 +1,145 @@
+diff --git a/node_modules/cubing/dist/esm/bluetooth/index.js b/node_modules/cubing/dist/esm/bluetooth/index.js
+index 571dacc..971c871 100644
+--- a/node_modules/cubing/dist/esm/bluetooth/index.js
++++ b/node_modules/cubing/dist/esm/bluetooth/index.js
+@@ -254,7 +254,7 @@ async function unsafeDecryptBlock(key, ciphertextBlock) {
+ }
+ 
+ // src/cubing/bluetooth/smart-puzzle/gan.ts
+-var DEFAULT_INTERVAL_MS = 150;
++var DEFAULT_INTERVAL_MS = 25;
+ var MAX_LATEST_MOVES = 6;
+ var ganMoveToBlockMove = {
+   0: new Move("U"),
+@@ -346,7 +346,7 @@ var PhysicalState = class {
+     const w = wSquared > 0 ? Math.sqrt(wSquared) : 0;
+     const quat = new Quaternion2(x, y, z, w);
+     if (!homeQuatInverse) {
+-      homeQuatInverse = quat.clone().inverse();
++      homeQuatInverse = quat.clone().invert();
+     }
+     return quat.clone().multiply(homeQuatInverse.clone());
+   }
+@@ -471,7 +471,7 @@ var GanCube = class extends BluetoothPuzzle {
+     this.lastMoveCounter = lastMoveCounter;
+     this.aesKey = aesKey;
+     this.INTERVAL_MS = DEFAULT_INTERVAL_MS;
+-    this.intervalHandle = null;
++    this.trackMoves = true;
+     this.state = kpuzzle.startState();
+     this.startTrackingMoves();
+   }
+@@ -493,36 +493,41 @@ var GanCube = class extends BluetoothPuzzle {
+     this.server.disconnect();
+   }
+   startTrackingMoves() {
+-    this.intervalHandle = window.setInterval(this.intervalHandler.bind(this), this.INTERVAL_MS);
++    this.trackMoves = true;
++    this.pollCube();
+   }
+   stopTrackingMoves() {
+-    if (!this.intervalHandle) {
+-      throw new Error("Not tracking moves!");
+-    }
+-    clearInterval(this.intervalHandle);
+-    this.intervalHandle = null;
+-  }
+-  async intervalHandler() {
+-    const physicalState = await PhysicalState.read(this.physicalStateCharacteristic, this.aesKey);
+-    let numInterveningMoves = physicalState.numMovesSince(this.lastMoveCounter);
+-    if (numInterveningMoves > MAX_LATEST_MOVES) {
+-      debugLog(`Too many moves! Dropping ${numInterveningMoves - MAX_LATEST_MOVES} moves`);
+-      numInterveningMoves = MAX_LATEST_MOVES;
++    this.trackMoves = false;
++  }
++  async pollCube() {
++    if (!this.trackMoves) {
++      return;
+     }
+-    for (const move of physicalState.latestMoves(numInterveningMoves)) {
+-      this.state = this.state.applyMove(move);
+-      this.dispatchMove({
+-        latestMove: move,
++    try {
++      const physicalState = await PhysicalState.read(this.physicalStateCharacteristic, this.aesKey);
++      let numInterveningMoves = physicalState.numMovesSince(this.lastMoveCounter);
++      if (numInterveningMoves > MAX_LATEST_MOVES) {
++        debugLog(`Too many moves! Dropping ${numInterveningMoves - MAX_LATEST_MOVES} moves`);
++        numInterveningMoves = MAX_LATEST_MOVES;
++      }
++      for (const move of physicalState.latestMoves(numInterveningMoves)) {
++        this.state = this.state.applyMove(move);
++        this.dispatchMove({
++          latestMove: move,
++          timeStamp: physicalState.timeStamp,
++          debug: physicalState.debugInfo(),
++          state: this.state
++        });
++      }
++      this.dispatchOrientation({
+         timeStamp: physicalState.timeStamp,
+-        debug: physicalState.debugInfo(),
+-        state: this.state
++        quaternion: physicalState.rotQuat()
+       });
++      this.lastMoveCounter = physicalState.moveCounter();
++    } catch (error) {
++      debuglog(error);
+     }
+-    this.dispatchOrientation({
+-      timeStamp: physicalState.timeStamp,
+-      quaternion: physicalState.rotQuat()
+-    });
+-    this.lastMoveCounter = physicalState.moveCounter();
++    window.setTimeout(() => this.pollCube(), this.INTERVAL_MS);
+   }
+   async getBattery() {
+     return new Uint8Array(await this.readActualAngleAndBatteryCharacteristic())[7];
+@@ -823,6 +828,7 @@ var giiKERConfig = {
+ 
+ // src/cubing/bluetooth/smart-puzzle/gocube.ts
+ import { Quaternion as Quaternion3 } from "three";
++import { debuglog } from "util";
+ var UUIDs3 = {
+   goCubeService: "6e400001-b5a3-f393-e0a9-e50e24dcca9e",
+   goCubeStateCharacteristic: "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
+@@ -885,7 +891,7 @@ var GoCube = class extends BluetoothPuzzle {
+     this.alg = alg || new Alg();
+   }
+   resetOrientation() {
+-    this.homeQuatInverse = this.lastRawQuat.clone().inverse();
++    this.homeQuatInverse = this.lastRawQuat.clone().invert();
+     this.currentQuat = new Quaternion3(0, 0, 0, 1);
+     this.lastTarget = new Quaternion3(0, 0, 0, 1);
+   }
+@@ -912,7 +918,7 @@ var GoCube = class extends BluetoothPuzzle {
+       const quat = new Quaternion3(coords[0], coords[1], coords[2], coords[3]);
+       this.lastRawQuat = quat.clone();
+       if (!this.homeQuatInverse) {
+-        this.homeQuatInverse = quat.clone().inverse();
++        this.homeQuatInverse = quat.clone().invert();
+       }
+       const targetQuat = quat.clone().multiply(this.homeQuatInverse.clone());
+       targetQuat.y = -targetQuat.y;
+diff --git a/node_modules/cubing/dist/types/bluetooth/index.d.ts b/node_modules/cubing/dist/types/bluetooth/index.d.ts
+index feadcc2..177a98f 100644
+--- a/node_modules/cubing/dist/types/bluetooth/index.d.ts
++++ b/node_modules/cubing/dist/types/bluetooth/index.d.ts
+@@ -38,7 +38,7 @@ declare class GanCube extends BluetoothPuzzle {
+     private aesKey;
+     static connect(server: BluetoothRemoteGATTServer): Promise<GanCube>;
+     INTERVAL_MS: number;
+-    private intervalHandle;
++    private trackMoves;
+     private state;
+     private cachedFaceletStatus1Characteristic;
+     private cachedFaceletStatus2Characteristic;
+@@ -48,7 +48,7 @@ declare class GanCube extends BluetoothPuzzle {
+     disconnect(): void;
+     startTrackingMoves(): void;
+     stopTrackingMoves(): void;
+-    intervalHandler(): Promise<void>;
++    pollCube(): Promise<void>;
+     getBattery(): Promise<number>;
+     getState(): Promise<KState>;
+     faceletStatus1Characteristic(): Promise<BluetoothRemoteGATTCharacteristic>;

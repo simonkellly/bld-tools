@@ -1,4 +1,5 @@
 import { AlgSheet } from "../components/AlgSheet";
+import { CubeButton } from "../components/CubeButton";
 import { LetterSchemeEditor } from "../components/LetterSchemeEditor";
 
 export const Home = () => {
@@ -13,6 +14,7 @@ export const Home = () => {
               Scroll down to see my corner algs
             </p>
             <LetterSchemeEditor text="Edit Letter Scheme" />
+            <CubeButton/>
           </div>
         </div>
       </div>
