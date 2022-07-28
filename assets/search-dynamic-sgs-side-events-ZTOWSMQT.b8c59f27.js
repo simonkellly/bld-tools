@@ -1,4 +1,4 @@
-import{p as R}from"./chunk-NJPSC7SH.f751062d.js";import{f as a,b as e}from"./chunk-ROGN5SXC.61b8a0c1.js";import{o as t,p as r,q as n}from"./index.908a27c4.js";var g=null;async function x(){return g??(g=u())}async function u(){return R(await t.kpuzzle(),`SubgroupSizes 24 21 18 15 12 9 6
+import{p as R}from"./chunk-NJPSC7SH.1bb769a9.js";import{f as a,b as e}from"./chunk-ROGN5SXC.40d11c29.js";import{o as t,p as r,q as n}from"./index.c13cb735.js";var g=null;async function x(){return g??(g=u())}async function u(){return R(await t.kpuzzle(),`SubgroupSizes 24 21 18 15 12 9 6
 
 Alg F
 Alg F2
