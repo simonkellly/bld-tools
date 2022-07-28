@@ -1,6 +1,6 @@
-import { AlgSheet } from "../components/AlgSheet";
 import { CubeButton } from "../components/CubeButton";
 import { LetterSchemeEditor } from "../components/LetterSchemeEditor";
+import { AlgTable } from "../components/AlgTable";
 
 export const Home = () => {
   return (
@@ -18,7 +18,7 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      <AlgSheet />
+      <AlgTable />
       <footer className="footer footer-center p-4 bg-base-300 text-base-content">
         <div>
           <p>

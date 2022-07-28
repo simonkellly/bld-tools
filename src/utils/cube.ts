@@ -17,7 +17,6 @@ export const Faces = {
     D: "bg-yellow-400",
 }
 
-
 // Sticker indices for each face
 // 0 1 2
 // 7 8 3
@@ -94,3 +93,13 @@ export function setLetterLogical(face: Sticker, index: number, letter: string) {
     LetterScheme[face][index] = letter;
     setLetterSchemeFromStorage();
 }
+
+export function getLetterColor(letter: string): string {
+    if (localLetterScheme.U.includes(letter)) return Faces.U;
+    if (localLetterScheme.F.includes(letter)) return Faces.F;
+    if (localLetterScheme.R.includes(letter)) return Faces.R;
+    if (localLetterScheme.B.includes(letter)) return Faces.B;
+    if (localLetterScheme.L.includes(letter)) return Faces.L;
+    if (localLetterScheme.D.includes(letter)) return Faces.D;
+    return "";
+  }
