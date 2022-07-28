@@ -1,39 +1,28 @@
 import * as Alg from "cubing/alg";
+import AlgWrapper from "./alg-wrapper";
 
-export const SHEET_ID = "1NEYh8MeTqHwnwA4s_CAYBGWU76pqdlutxR0SA2hNZKk";
-export const SHEET_NAME = "UFR Corners";
-
-export class AlgWrapper {
-  alg: Alg.Alg;
-  string: string | undefined;
-  expanded: string | undefined;
-  
-  constructor(alg: Alg.Alg) {
-    this.alg = alg!;
-    this.string = alg.toString();
-    this.expanded = alg.expand().simplify().toString();
-  }
-}
+const SHEET_ID = "1NEYh8MeTqHwnwA4s_CAYBGWU76pqdlutxR0SA2hNZKk";
+const SHEET_NAME = "UFR Corners";
 
 declare type AlgSet = {
   [letter: string]: AlgWrapper;
 };
 
-declare type AlgArray = {
+declare type AlgCollection = {
   [letter: string]: AlgSet;
 };
 
-export class AlgSheet {
-  algArray: AlgArray;
+export default class AlgSheet {
+  algArray: AlgCollection;
   letters: string[];
-  constructor(letters: string[], algArray: AlgArray) {
+  constructor(letters: string[], algArray: AlgCollection) {
     this.algArray = algArray;
     this.letters = letters;
     this.generateInverses();
   }
 
   private generateInverses(): void {
-    const inverses: AlgArray = {};
+    const inverses: AlgCollection = {};
     for (const first in this.algArray) {
       for (const second in this.algArray[first]) {
         if (
@@ -74,11 +63,8 @@ export class AlgSheet {
   }
 }
 
-export async function fetchGoogleSheet(
-  sheetId: string,
-  sheetName: string
-): Promise<AlgSheet> {
-  const apiURL = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?sheet=${sheetName}`;
+export async function fetchGoogleSheet(): Promise<AlgSheet> {
+  const apiURL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${SHEET_NAME}`;
   const sheetReq = await fetch(apiURL);
   const sheetData = await sheetReq.text();
 
@@ -96,7 +82,7 @@ export async function fetchGoogleSheet(
     .slice(1)
     .map((row: { c: { v: string }[] }) => row?.c[0]?.v?.substring(0, 1));
 
-  const algArray: AlgArray = {};
+  const algArray: AlgCollection = {};
 
   firstLetters.forEach((firstLetter: string, firstIndex: number) => {
     const algSet: AlgSet = {};
