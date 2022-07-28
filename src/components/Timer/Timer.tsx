@@ -7,7 +7,7 @@ export const Timer = () => {
   useEffect(() => {
     fetchGoogleSheet().then(setAlgSheet);
   }, []);
-
+  
   const [alg, setAlg] = useState<AlgWrapper>();
   useEffect(() => setAlg(algSheet?.getAlg("S", "K")), [algSheet]);
 
