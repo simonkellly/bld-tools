@@ -3,21 +3,11 @@ import AlgSheet, { fetchGoogleSheet } from "../../utils/alg-sheet";
 import AlgWrapper from "../../utils/alg-wrapper";
 import * as Bluetooth from "cubing/bluetooth";
 import { BluetoothModal } from "./BluetoothModal";
+import { arraysEqual } from "../../utils/general-utils";
 
 interface TimerState {
   cubeState: any;
   alg: AlgWrapper | undefined;
-}
-
-function arraysEqual(a: any[], b: any[]): boolean {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length !== b.length) return false;
-
-  for (var i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
 }
 
 function getRandomAlg(algSheet: AlgSheet) {
@@ -51,15 +41,21 @@ export const Timer = () => {
   }, [timerState]);
 
   const resetCube = () => {
-    cube?.getState().then((state) => setTimerState({ alg: timerState?.alg, cubeState: state }));
     shouldStop = true;
   }
 
   let shouldStop = false;
   const checkSolve = async () => {
     console.log("CHECKING");
-    while (!shouldStop) {
+    while (true) {
+      if (shouldStop) {
+        const state = await cube!.getState();
+        setTimerState({ alg: timerState?.alg, cubeState: state })
+        return;
+      }
+
       if (timerState == undefined) return;
+
       try {
         await (cube as any).intervalHandler();
         const state = await cube!.getState();
