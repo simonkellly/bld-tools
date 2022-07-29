@@ -1,4 +1,4 @@
-import { TimerCard } from "./TimerCard";
+import { TrainerCard } from "./TrainerCard";
 
 const alphabet = [
   "A",
@@ -25,7 +25,7 @@ const alphabet = [
 ];
 
 export const CaseSelector = () => (
-  <TimerCard className="px-3">
+  <TrainerCard className="px-3">
     <p className="text-2xl text-center font-semibold swap-on pb-3">
       Select Cases To Train
     </p>
@@ -45,5 +45,5 @@ export const CaseSelector = () => (
       <button className="btn btn-primary">None</button>
       <button className="btn btn-secondary">All</button>
     </div>
-  </TimerCard>
+  </TrainerCard>
 );

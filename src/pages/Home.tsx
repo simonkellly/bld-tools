@@ -1,10 +1,9 @@
-import { NewTimer } from "../components/New/NewTimer";
-import { Timer } from "../components/Timer/Timer";
+import { TrainerUI } from "../components/New/TrainerUI";
 
 export const Home = () => {
   return (
     <div>
-      <NewTimer/>
+      <TrainerUI/>
     </div>
   );
 };
