@@ -51,7 +51,7 @@ export default class AlgSheet {
     if (alg == undefined) {
       throw new Error(`No inverse for ${first}${second}`);
     }
-    return new AlgWrapper(alg.alg.invert());
+    return new AlgWrapper({first: first, second: second}, alg.alg.invert());
   }
 
   getAlg(first: string, second: string): AlgWrapper | undefined {
@@ -89,7 +89,7 @@ export async function fetchGoogleSheet(): Promise<AlgSheet> {
     secondLetters.forEach((secondLetter: string, secondIndex: number) => {
       const alg = rows[secondIndex + 1].c[firstIndex + 1]?.v;
       if (alg != undefined) {
-        algSet[secondLetter] = new AlgWrapper(new Alg.Alg(alg));
+        algSet[secondLetter] = new AlgWrapper({first: firstLetter, second: secondLetter}, new Alg.Alg(alg));
       }
     });
     algArray[firstLetter] = algSet;

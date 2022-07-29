@@ -1,8 +1,18 @@
 diff --git a/node_modules/cubing/dist/esm/bluetooth/index.js b/node_modules/cubing/dist/esm/bluetooth/index.js
-index 571dacc..f9b8f59 100644
+index 571dacc..1c9667a 100644
 --- a/node_modules/cubing/dist/esm/bluetooth/index.js
 +++ b/node_modules/cubing/dist/esm/bluetooth/index.js
-@@ -346,7 +346,7 @@ var PhysicalState = class {
+@@ -320,7 +320,8 @@ async function decryptState(data, aesKey) {
+   if (probablyDecodedCorrectly(copy)) {
+     return copy;
+   }
+-  throw new Error("Invalid Gan cube state");
++  // console.log("Invalid Gan cube state");
++  return copy;
+ }
+ var PhysicalState = class {
+   constructor(dataView, timeStamp) {
+@@ -346,7 +347,7 @@ var PhysicalState = class {
      const w = wSquared > 0 ? Math.sqrt(wSquared) : 0;
      const quat = new Quaternion2(x, y, z, w);
      if (!homeQuatInverse) {
@@ -11,26 +21,7 @@ index 571dacc..f9b8f59 100644
      }
      return quat.clone().multiply(homeQuatInverse.clone());
    }
-@@ -493,7 +493,17 @@ var GanCube = class extends BluetoothPuzzle {
-     this.server.disconnect();
-   }
-   startTrackingMoves() {
--    this.intervalHandle = window.setInterval(this.intervalHandler.bind(this), this.INTERVAL_MS);
-+    // this.intervalHandle = window.setInterval(this.intervalHandler.bind(this), this.INTERVAL_MS);
-+    this.runInterval();
-+  }
-+  async runInterval() {
-+    while (true) {
-+      try {
-+        await this.intervalHandler();
-+      } catch (error) {
-+        console.log(error);
-+      }
-+    }
-   }
-   stopTrackingMoves() {
-     if (!this.intervalHandle) {
-@@ -885,7 +895,7 @@ var GoCube = class extends BluetoothPuzzle {
+@@ -885,7 +886,7 @@ var GoCube = class extends BluetoothPuzzle {
      this.alg = alg || new Alg();
    }
    resetOrientation() {
@@ -39,7 +30,7 @@ index 571dacc..f9b8f59 100644
      this.currentQuat = new Quaternion3(0, 0, 0, 1);
      this.lastTarget = new Quaternion3(0, 0, 0, 1);
    }
-@@ -912,7 +922,7 @@ var GoCube = class extends BluetoothPuzzle {
+@@ -912,7 +913,7 @@ var GoCube = class extends BluetoothPuzzle {
        const quat = new Quaternion3(coords[0], coords[1], coords[2], coords[3]);
        this.lastRawQuat = quat.clone();
        if (!this.homeQuatInverse) {
