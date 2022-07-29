@@ -1,9 +1,9 @@
-import { TrainerUI } from "../components/New/TrainerUI";
+import { Trainer } from "../components/New/Trainer";
 
 export const Home = () => {
   return (
     <div>
-      <TrainerUI/>
+      <Trainer/>
     </div>
   );
 };

@@ -1,46 +1,40 @@
-import {
-  faSliders,
-  faShuffle,
-  faCubes,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { CaseSelector } from "./CaseSelector";
-import { ConnectionModal } from "./ConnectionModal";
-import { Trainer } from "./Trainer";
+import { TrainerCard } from "./TrainerCard";
 
 export const TrainerUI = () => {
-  const [showCases, setShowCases] = useState(false);
-
   return (
-    <div className="flex h-screen bg-base-300">
-      <div className="m-auto space-y-3">
-        <div className="flex">
-          <div className="btn-group content-center m-auto indicator bg-base-100 rounded-lg">
-            <button className="btn btn-ghost">
-              <FontAwesomeIcon icon={faSliders} className="text-2xl" />
-            </button>
+    <>
+      <TrainerCard>
+        <label className="swap">
+          <input type="checkbox" />
+          <p className="text-2xl text-center font-semibold swap-on">
+            [U D': [D2', R U' R']]
+          </p>
+          <p className="text-2xl text-center font-semibold swap-off">
+            Click To Reveal Solution
+          </p>
+        </label>
+      </TrainerCard>
 
-            <button
-              className={`btn btn-ghost ${showCases && "btn-active"}`}
-              onClick={() => setShowCases(!showCases)}
-            >
-              <FontAwesomeIcon icon={faCubes} className="text-2xl" />
-            </button>
+      <TrainerCard>
+        <p className="text-9xl text-center font-bold">SK</p>
+      </TrainerCard>
 
-            <span className="indicator-item badge badge-secondary">450</span>
-            <button className="btn btn-ghost">
-              <FontAwesomeIcon icon={faShuffle} className="text-2xl" />
-            </button>
-          </div>
+      <TrainerCard>
+        <div className="space-x-3 items-center text-center">
+          <button className="btn btn-primary">
+            <span className="px-1">Reset</span>
+          </button>
+          <button className="btn btn-success">
+            <span className="px-1">Done</span>
+          </button>
+          <button className="btn btn-warning">
+            <span className="px-1">Retry</span>
+          </button>
+          <button className="btn btn-error">
+            <span className="px-1">Next</span>
+          </button>
         </div>
-        
-        <Trainer/>
-
-        {showCases && <CaseSelector />}
-      </div>
-
-      <ConnectionModal />
-    </div>
+      </TrainerCard>
+    </>
   );
 };

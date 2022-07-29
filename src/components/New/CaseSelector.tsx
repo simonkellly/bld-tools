@@ -34,7 +34,7 @@ export const CaseSelector = () => (
         <button
           key={letter}
           className={`btn ${
-            Math.random() > 0.5 ? "btn-success" : "btn-outline"
+            Math.random() > 0.5 ? "btn-success" : "btn-ghost"
           } btn-block`}
         >
           {letter}
