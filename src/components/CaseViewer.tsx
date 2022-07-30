@@ -27,7 +27,7 @@ export const CaseViewer = () => {
   return (
     <>
       <TrainerCard 
-        className="overflow-visible"
+        className="overflow-visible select-none"
         onMouseEnter={showAlgOnEnter}
         onMouseLeave={hideAlgOnLeave}
       >
@@ -43,7 +43,7 @@ export const CaseViewer = () => {
         </div>
       </TrainerCard>
 
-      <TrainerCard>
+      <TrainerCard className="select-none">
         <p className="text-9xl text-center font-bold">{caseString}</p>
       </TrainerCard>
 
