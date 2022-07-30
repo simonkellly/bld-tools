@@ -42,6 +42,19 @@ export const Trainer = () => {
   const [btCube, setBtCube] = useState<BluetoothPuzzle>();
   const [overrideCube, setOverrideCube] = useState(false);
 
+  const updateCubeState = async () => {
+    while (true) {
+      await (btCube as any).intervalHandler();
+    }
+  }
+
+  useEffect(() => {
+    if (!btCube) return;
+    btCube.addMoveListener((move) => console.log(move));
+    (btCube as any).stopTrackingMoves();
+    updateCubeState();
+  }, [btCube]);
+
   if (!algSheet) return <Loading />;
 
   return (
@@ -49,19 +62,26 @@ export const Trainer = () => {
       <div className="m-auto space-y-3">
         <div className="flex">
           <div className="btn-group content-center m-auto indicator bg-base-100 rounded-lg shadow-xl">
-            <button className="btn btn-ghost">
+            <button 
+              className="btn btn-ghost" 
+              aria-label="settings"
+            >
               <FontAwesomeIcon icon={faSliders} className="text-2xl" />
             </button>
 
             <button
               className={`btn btn-ghost ${showCases && "btn-active"}`}
               onClick={() => setShowCases(!showCases)}
+              area-label="cases"
             >
               <FontAwesomeIcon icon={faCubes} className="text-2xl" />
             </button>
 
             <span className="indicator-item badge badge-secondary">450</span>
-            <button className="btn btn-ghost">
+            <button 
+              className="btn btn-ghost"
+              aria-label="sorting"
+            >
               <FontAwesomeIcon icon={faShuffle} className="text-2xl" />
             </button>
           </div>
