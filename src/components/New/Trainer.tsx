@@ -9,13 +9,17 @@ import AlgSheet, { fetchGoogleSheet } from "../../utils/alg-sheet";
 import AlgWrapper from "../../utils/alg-wrapper";
 import { CaseSelector } from "./CaseSelector";
 import { ConnectionModal } from "./ConnectionModal";
+import { Footer } from "./Footer";
 import { Loading } from "./Loading";
 import { TrainerUI } from "./TrainerUI";
+import { BluetoothPuzzle } from "cubing/bluetooth";
 
 function getNextAlg(algSheet: AlgSheet): AlgWrapper {
   while (true) {
-    const first = algSheet.letters[Math.floor(Math.random() * algSheet.letters.length)];
-    const second = algSheet.letters[Math.floor(Math.random() * algSheet.letters.length)];
+    const first =
+      algSheet.letters[Math.floor(Math.random() * algSheet.letters.length)];
+    const second =
+      algSheet.letters[Math.floor(Math.random() * algSheet.letters.length)];
     const alg = algSheet.getAlg(first, second);
     if (alg != undefined) return alg;
   }
@@ -34,6 +38,9 @@ export const Trainer = () => {
     if (!algSheet || currentAlg) return;
     setCurrentAlg(getNextAlg(algSheet));
   }, [algSheet]);
+
+  const [btCube, setBtCube] = useState<BluetoothPuzzle>();
+  const [overrideCube, setOverrideCube] = useState(false);
 
   if (!algSheet) return <Loading />;
 
@@ -59,13 +66,20 @@ export const Trainer = () => {
             </button>
           </div>
         </div>
-        
-        <TrainerUI currentAlg={currentAlg}/>
 
-        {showCases && <CaseSelector algSheet={algSheet}/>}
+        <TrainerUI currentAlg={currentAlg} />
+
+        {showCases && <CaseSelector algSheet={algSheet} />}
+
+        <Footer />
       </div>
 
-      <ConnectionModal />
+      <ConnectionModal
+        btCube={btCube}
+        setBtCube={setBtCube}
+        overrideCube={overrideCube}
+        setOverrideCube={setOverrideCube}
+      />
     </div>
   );
 };
