@@ -10,9 +10,12 @@ import { CaseSelector } from "./CaseSelector";
 import { Footer } from "./Footer";
 import { CaseViewer } from "./CaseViewer";
 import { CaseContext } from "../context/CaseContext";
+import { Settings } from "./Settings";
 
 export const TrainerUI = () => {
   const [showCaseSelector, setShowCaseSelector] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+
   const caseContext = useContext(CaseContext);
   const controller = caseContext.caseController!;
   const [_, setRenderState] = useState({});
@@ -24,17 +27,31 @@ export const TrainerUI = () => {
     setRenderState({});
   }
 
+  const toggleCaseSelector = () => {
+    if (!showCaseSelector) setShowSettings(false);
+    setShowCaseSelector(!showCaseSelector);
+  }
+
+  const toggleSettings = () => {
+    if (!showSettings) setShowCaseSelector(false);
+    setShowSettings(!showSettings);
+  }
+
   return (
     <>
       <div className="flex">
         <div className="btn-group content-center m-auto indicator bg-base-100 rounded-lg shadow-xl">
-          <button className="btn btn-ghost" aria-label="settings">
+        <button
+            className={`btn btn-ghost ${showSettings && "btn-active"}`}
+            onClick={toggleSettings}
+            area-label="settings"
+          >
             <FontAwesomeIcon icon={faSliders} className="text-2xl" />
           </button>
 
           <button
             className={`btn btn-ghost ${showCaseSelector && "btn-active"}`}
-            onClick={() => setShowCaseSelector(!showCaseSelector)}
+            onClick={toggleCaseSelector}
             area-label="cases"
           >
             <FontAwesomeIcon icon={faCubes} className="text-2xl" />
@@ -51,7 +68,9 @@ export const TrainerUI = () => {
 
       {showCaseSelector && <CaseSelector />}
 
-      {!showCaseSelector && <Footer />}
+      {showSettings && <Settings />}
+
+      {!showCaseSelector && !showSettings && <Footer />}
     </>
   );
 };
