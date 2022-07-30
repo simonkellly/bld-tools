@@ -9,8 +9,9 @@ import { BTCubeContext } from "../context/BTCubeContext";
 import { CaseContext, CaseProps } from "../context/CaseContext";
 import AlgWrapper from "../utils/alg-wrapper";
 import { BTCubeHandler } from "./BTCubeHandler";
-import { CaseController } from "../utils/case-controller";
+import { CaseController, CaseControllerProps } from "../utils/case-controller";
 import { Toaster } from "react-hot-toast";
+import useStorageState from "react-use-storage-state";
 
 export const Trainer = () => {
   const [btCube, setBtCube] = useState<BluetoothPuzzle>();
@@ -54,9 +55,11 @@ export const Trainer = () => {
     addRetryListener: (resetListener: () => void) => resetListeners.push(resetListener),
   }
 
+  const [storedState, setStoredState] = useStorageState<CaseControllerProps>("case-controller", {});
+
   useEffect(() => {
     if (!algSheet) return;
-    const controller = new CaseController(algSheet);
+    const controller = new CaseController(algSheet, storedState, setStoredState);
     controller.onUpdateCases = forceRender;
     setCaseController(controller);
     setCurrentCase(controller.getNextCase());

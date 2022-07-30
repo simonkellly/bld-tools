@@ -1,10 +1,17 @@
 import toast from "react-hot-toast";
+import useStorageState from "react-use-storage-state";
 import AlgSheet from "./alg-sheet";
 import AlgWrapper from "./alg-wrapper";
 
 interface LetterState {
   letter: string;
   selected: boolean;
+}
+
+export interface CaseControllerProps {
+  letterStates?: LetterState[];
+  allowMultiple?: boolean;
+  allowInverses?: boolean;
 }
 
 export class CaseController {
@@ -14,15 +21,30 @@ export class CaseController {
   allowMultiple: boolean = false;
   remainingCases: AlgWrapper[] = [];
   onUpdateCases?: () => void;
-  constructor(algSheet: AlgSheet) {
+
+  private storedState: CaseControllerProps;
+  private setStoredState: (state: CaseControllerProps) => void;
+  constructor(algSheet: AlgSheet, storedState: CaseControllerProps, setStoredState: (state: CaseControllerProps) => void) {
     this.algSheet = algSheet;
 
-    algSheet.letters.forEach(letter => {
-      this.letterStates.push({
-        letter: letter,
-        selected: true
+    this.storedState = storedState;
+    this.setStoredState = setStoredState;
+
+    this.allowInverses = storedState.allowInverses == undefined ? true : storedState.allowInverses;
+    this.allowMultiple = storedState.allowMultiple == undefined ? false : storedState.allowMultiple;
+
+    if (storedState.letterStates) {
+      this.letterStates = storedState.letterStates;
+    } else {
+      algSheet.letters.forEach(letter => {
+        this.letterStates.push({
+          letter: letter,
+          selected: true
+        });
       });
-    });
+    }
+
+    
     this.updatePotentialCases();
   }
 
@@ -45,6 +67,14 @@ export class CaseController {
         return;
       }
     });
+
+    const newStoredState: CaseControllerProps = {
+      letterStates: this.letterStates,
+      allowMultiple: this.allowMultiple,
+      allowInverses: this.allowInverses
+    }
+
+    this.setStoredState(newStoredState);
     this.onUpdateCases && this.onUpdateCases();
   }
 

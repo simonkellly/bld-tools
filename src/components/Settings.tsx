@@ -6,10 +6,9 @@ export const Settings = () => {
       <p className="text-2xl text-center font-semibold swap-on pb-3">
         Settings
       </p>
-      <div className="space-x-3 items-center text-center pt-3">
-        <button className="btn btn-primary">None</button>
-        <button className="btn btn-secondary">All</button>
-      </div>
+
+      <button className="btn btn-block btn-primary">Apply Settings</button>
+
     </TrainerCard>
   );
-}
+};
