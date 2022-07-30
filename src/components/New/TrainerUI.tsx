@@ -15,7 +15,7 @@ export const TrainerUI = (props: TrainerUIProps) => {
 
 
   let timeout: NodeJS.Timeout | undefined;
-  const showAlgOnEnter = () => timeout = setTimeout(() => setShowAlg(true), 200);
+  const showAlgOnEnter = () => timeout = setTimeout(() => setShowAlg(true), 300);
   const hideAlgOnLeave = () => {
     timeout && clearTimeout(timeout);
     setShowAlg(false);
@@ -23,15 +23,17 @@ export const TrainerUI = (props: TrainerUIProps) => {
 
   return (
     <>
-      <TrainerCard className="overflow-visible">
+      <TrainerCard 
+        className="overflow-visible"
+        onMouseEnter={showAlgOnEnter}
+        onMouseLeave={hideAlgOnLeave}
+      >
         <div
           className={(showAlg && "tooltip") || ""}
           data-tip={props.currentAlg?.expanded}
         >
           <p
             className="text-2xl text-center font-semibold"
-            onMouseEnter={showAlgOnEnter}
-            onMouseLeave={hideAlgOnLeave}
           >
             {(showAlg && algString) || "Hover Over To Reveal Solution"}
           </p>
