@@ -80,7 +80,7 @@ export class CaseController {
 
   getNextCase(): AlgWrapper {
     if (this.remainingCases.length === 0) {
-      toast("All cases trained, resetting", { duration: 1000, position: "bottom-right" });
+      toast("All cases complete, resetting", { duration: 2000, position: "bottom-right" });
       this.updatePotentialCases();
     }
     const index = Math.floor(Math.random() * this.remainingCases.length);
