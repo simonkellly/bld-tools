@@ -1,16 +1,28 @@
 import {
+  faBars,
   faCubes,
   faShuffle,
   faSliders,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CaseSelector } from "./CaseSelector";
 import { Footer } from "./Footer";
 import { CaseViewer } from "./CaseViewer";
+import { CaseContext } from "../context/CaseContext";
 
 export const TrainerUI = () => {
   const [showCaseSelector, setShowCaseSelector] = useState(false);
+  const caseContext = useContext(CaseContext);
+  const controller = caseContext.caseController!;
+  const [_, setRenderState] = useState({});
+
+  const toggleMultiple = () => {
+    controller.allowMultiple = !controller.allowMultiple;
+    controller.updatePotentialCases();
+    caseContext.nextCase && caseContext.nextCase();
+    setRenderState({});
+  }
 
   return (
     <>
@@ -28,9 +40,9 @@ export const TrainerUI = () => {
             <FontAwesomeIcon icon={faCubes} className="text-2xl" />
           </button>
 
-          <span className="indicator-item badge badge-secondary">450</span>
-          <button className="btn btn-ghost" aria-label="sorting">
-            <FontAwesomeIcon icon={faShuffle} className="text-2xl" />
+          {<span className="indicator-item badge badge-primary">{controller.remainingCases.length}</span>}
+          <button className="btn btn-ghost" aria-label="sorting" onClick={toggleMultiple}>
+            <FontAwesomeIcon icon={controller.allowMultiple ? faShuffle : faBars} className="text-2xl" />
           </button>
         </div>
       </div>

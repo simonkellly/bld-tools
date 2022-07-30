@@ -9,36 +9,37 @@ import { BTCubeContext } from "../context/BTCubeContext";
 import { CaseContext, CaseProps } from "../context/CaseContext";
 import AlgWrapper from "../utils/alg-wrapper";
 import { BTCubeHandler } from "./BTCubeHandler";
-
-function getNextAlg(algSheet: AlgSheet): AlgWrapper {
-  while (true) {
-    const first =
-      algSheet.letters[Math.floor(Math.random() * algSheet.letters.length)];
-    const second =
-      algSheet.letters[Math.floor(Math.random() * algSheet.letters.length)];
-    const alg = algSheet.getAlg(first, second);
-    if (alg != undefined) return alg;
-  }
-}
+import { CaseController } from "../utils/case-controller";
+import { Toaster } from "react-hot-toast";
 
 export const Trainer = () => {
   const [btCube, setBtCube] = useState<BluetoothPuzzle>();
   const [algSheet, setAlgSheet] = useState<AlgSheet>();
   const [currentCase, setCurrentCase] = useState<AlgWrapper>();
+  const [caseController, setCaseController] = useState<CaseController>();
   const [resetListeners] = useState<(() => void)[]>([]);
+  const [render, setRender] = useState({});
+
+  const forceRender = () => setRender({});
 
   useEffect(() => {
     fetchGoogleSheet().then(setAlgSheet);
   }, []);
 
   const nextCase = () => {
-    algSheet && setCurrentCase(getNextAlg(algSheet));
+    caseController && setCurrentCase(caseController.getNextCase());
+  }
+
+  const resetCases = () => {
+    caseController && caseController.updatePotentialCases();
+    nextCase();
   }
 
   const caseContextValue: CaseProps = {
+    caseController: caseController,
     currentCase: currentCase,
     setCurrentCase: setCurrentCase,
-    resetCases: nextCase,
+    resetCases: resetCases,
     completeCase: nextCase,
     retryCase: () => {
       resetListeners.forEach(resetListener => {
@@ -50,15 +51,18 @@ export const Trainer = () => {
       });
     },
     nextCase: nextCase,
-    addResetListener: (resetListener: () => void) => resetListeners.push(resetListener),
+    addRetryListener: (resetListener: () => void) => resetListeners.push(resetListener),
   }
 
   useEffect(() => {
     if (!algSheet) return;
-    setCurrentCase(getNextAlg(algSheet));
+    const controller = new CaseController(algSheet);
+    controller.onUpdateCases = forceRender;
+    setCaseController(controller);
+    setCurrentCase(controller.getNextCase());
   }, [algSheet]);
 
-  if (!algSheet) return <Loading />;
+  if (!algSheet || !currentCase) return <Loading />;
   return (
     <AlgSheetContext.Provider value={{ algSheet }}>
       <BTCubeContext.Provider value={{ btCube, setBtCube }}>
@@ -66,6 +70,7 @@ export const Trainer = () => {
           <BTCubeHandler/>
           <div className="flex h-screen bg-base-300 overflow-y-scroll	overflow-visible">
             <div className="m-auto space-y-3">
+              <Toaster/>
               <TrainerUI />
             </div>
             <ConnectionModal />

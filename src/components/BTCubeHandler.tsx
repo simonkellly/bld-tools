@@ -82,8 +82,8 @@ export const BTCubeHandler = () => {
   }, [btCubeContext.btCube]);
 
   useEffect(() => {
-    if (!caseContext?.addResetListener || addedListener.current) return;
-    caseContext.addResetListener!(() => {
+    if (!caseContext?.addRetryListener || addedListener.current) return;
+    caseContext.addRetryListener!(() => {
       shouldResetState.current = true;
     })
     addedListener.current = true;
