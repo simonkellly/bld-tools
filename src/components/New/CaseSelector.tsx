@@ -1,36 +1,17 @@
+import AlgSheet from "../../utils/alg-sheet";
 import { TrainerCard } from "./TrainerCard";
 
-const alphabet = [
-  "A",
-  "B",
-  "D",
-  "E",
-  "G",
-  "H",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-];
+interface CaseSelectorProps {
+  algSheet: AlgSheet
+}
 
-export const CaseSelector = () => (
+export const CaseSelector = (props: CaseSelectorProps) => (
   <TrainerCard className="px-3">
     <p className="text-2xl text-center font-semibold swap-on pb-3">
       Select Cases To Train
     </p>
     <div className="grid grid-cols-6 gap-4">
-      {alphabet.map((letter) => (
+      {props.algSheet.letters.map((letter) => (
         <button
           key={letter}
           className={`btn ${

@@ -1,22 +1,45 @@
+import { useState } from "react";
+import AlgWrapper from "../../utils/alg-wrapper";
 import { TrainerCard } from "./TrainerCard";
 
-export const TrainerUI = () => {
+interface TrainerUIProps {
+  currentAlg?: AlgWrapper;
+}
+
+export const TrainerUI = (props: TrainerUIProps) => {
+  const [showAlg, setShowAlg] = useState(false);
+  const algString = props.currentAlg ? props.currentAlg.string : "MISSING";
+  const caseString = props.currentAlg
+    ? props.currentAlg.case.first + props.currentAlg.case.second
+    : "BLD";
+
+
+  let timeout: NodeJS.Timeout | undefined;
+  const showAlgOnEnter = () => timeout = setTimeout(() => setShowAlg(true), 200);
+  const hideAlgOnLeave = () => {
+    timeout && clearTimeout(timeout);
+    setShowAlg(false);
+  }
+
   return (
     <>
-      <TrainerCard>
-        <label className="swap">
-          <input type="checkbox" />
-          <p className="text-2xl text-center font-semibold swap-on">
-            [U D': [D2', R U' R']]
+      <TrainerCard className="overflow-visible">
+        <div
+          className={(showAlg && "tooltip") || ""}
+          data-tip={props.currentAlg?.expanded}
+        >
+          <p
+            className="text-2xl text-center font-semibold"
+            onMouseEnter={showAlgOnEnter}
+            onMouseLeave={hideAlgOnLeave}
+          >
+            {(showAlg && algString) || "Hover Over To Reveal Solution"}
           </p>
-          <p className="text-2xl text-center font-semibold swap-off">
-            Click To Reveal Solution
-          </p>
-        </label>
+        </div>
       </TrainerCard>
 
       <TrainerCard>
-        <p className="text-9xl text-center font-bold">SK</p>
+        <p className="text-9xl text-center font-bold">{caseString}</p>
       </TrainerCard>
 
       <TrainerCard>
