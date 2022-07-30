@@ -4,6 +4,8 @@ import { TrainerCard } from "./TrainerCard";
 
 interface TrainerUIProps {
   currentAlg?: AlgWrapper;
+  retry: () => void;
+  next: () => void;
 }
 
 export const TrainerUI = (props: TrainerUIProps) => {
@@ -52,10 +54,10 @@ export const TrainerUI = (props: TrainerUIProps) => {
           <button className="btn btn-success">
             <span className="px-1">Done</span>
           </button>
-          <button className="btn btn-warning">
+          <button className="btn btn-warning" onClick={props.retry}>
             <span className="px-1">Retry</span>
           </button>
-          <button className="btn btn-error">
+          <button className="btn btn-error" onClick={props.next}>
             <span className="px-1">Next</span>
           </button>
         </div>

@@ -3,7 +3,7 @@ import AlgSheet, { fetchGoogleSheet } from "../../utils/alg-sheet";
 import AlgWrapper from "../../utils/alg-wrapper";
 import * as Bluetooth from "cubing/bluetooth";
 import { BluetoothModal } from "./BluetoothModal";
-import { arraysEqual } from "../../utils/general-utils";
+import { stateEquals } from "../../utils/cube-utils";
 
 interface TimerState {
   cubeState: any;
