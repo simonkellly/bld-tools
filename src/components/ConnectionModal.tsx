@@ -1,6 +1,6 @@
 import { BluetoothPuzzle, connectSmartPuzzle } from "cubing/bluetooth";
 import { useContext, useState } from "react";
-import { BTCubeContext } from "../../context/BTCubeContext";
+import { BTCubeContext } from "../context/BTCubeContext";
 
 export const ConnectionModal = () => {
   const [overrideCube, setOverrideCube] = useState(false);

@@ -1,5 +1,5 @@
-import { AlgSheetContext } from "../../context/AlgSheetContext";
-import AlgSheet from "../../utils/alg-sheet";
+import { AlgSheetContext } from "../context/AlgSheetContext";
+import AlgSheet from "../utils/alg-sheet";
 import { TrainerCard } from "./TrainerCard";
 
 export const CaseSelector = () => (

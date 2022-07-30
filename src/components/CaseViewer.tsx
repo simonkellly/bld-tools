@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { AlgSheetContext } from "../../context/AlgSheetContext";
-import { CaseContext } from "../../context/CaseContext";
-import AlgWrapper from "../../utils/alg-wrapper";
+import { AlgSheetContext } from "../context/AlgSheetContext";
+import { CaseContext } from "../context/CaseContext";
+import AlgWrapper from "../utils/alg-wrapper";
 import { TrainerCard } from "./TrainerCard";
 
 export const CaseViewer = () => {

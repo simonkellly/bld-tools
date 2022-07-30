@@ -5,7 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { CaseSelector } from "../Trainer/CaseSelector";
+import { CaseSelector } from "./CaseSelector";
 import { Footer } from "./Footer";
 import { CaseViewer } from "./CaseViewer";
 

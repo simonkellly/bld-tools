@@ -1,4 +1,4 @@
-import { Trainer } from "../components/Trainer/Trainer";
+import { Trainer } from "../components/Trainer";
 
 
 export const Home = () => {
