@@ -1,18 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AlgSheetContext } from "../../context/AlgSheetContext";
+import { CaseContext } from "../../context/CaseContext";
 import AlgWrapper from "../../utils/alg-wrapper";
 import { TrainerCard } from "./TrainerCard";
 
-interface TrainerUIProps {
-  currentAlg?: AlgWrapper;
-  retry: () => void;
-  next: () => void;
-}
-
-export const TrainerUI = (props: TrainerUIProps) => {
+export const CaseViewer = () => {
   const [showAlg, setShowAlg] = useState(false);
-  const algString = props.currentAlg ? props.currentAlg.string : "MISSING";
-  const caseString = props.currentAlg
-    ? props.currentAlg.case.first + props.currentAlg.case.second
+
+  const caseContext = useContext(CaseContext);
+  const currentAlg = caseContext.currentCase!;
+
+
+  const algString = currentAlg ? currentAlg.string : "MISSING";
+  const caseString = currentAlg
+    ? currentAlg.case.first + currentAlg.case.second
     : "BLD";
 
 
@@ -32,7 +33,7 @@ export const TrainerUI = (props: TrainerUIProps) => {
       >
         <div
           className={(showAlg && "tooltip") || ""}
-          data-tip={props.currentAlg?.expanded}
+          data-tip={currentAlg?.expanded}
         >
           <p
             className="text-2xl text-center font-semibold"
@@ -48,16 +49,16 @@ export const TrainerUI = (props: TrainerUIProps) => {
 
       <TrainerCard>
         <div className="space-x-3 items-center text-center">
-          <button className="btn btn-primary">
+          <button className="btn btn-primary" onClick={caseContext.resetCases}>
             <span className="px-1">Reset</span>
           </button>
-          <button className="btn btn-success">
+          <button className="btn btn-success" onClick={caseContext.completeCase}>
             <span className="px-1">Done</span>
           </button>
-          <button className="btn btn-warning" onClick={props.retry}>
+          <button className="btn btn-warning" onClick={caseContext.retryCase}>
             <span className="px-1">Retry</span>
           </button>
-          <button className="btn btn-error" onClick={props.next}>
+          <button className="btn btn-error" onClick={caseContext.nextCase}>
             <span className="px-1">Next</span>
           </button>
         </div>

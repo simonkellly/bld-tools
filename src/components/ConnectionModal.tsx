@@ -1,18 +1,17 @@
 import { BluetoothPuzzle, connectSmartPuzzle } from "cubing/bluetooth";
+import { useContext, useState } from "react";
+import { BTCubeContext } from "../../context/BTCubeContext";
 
-interface ConnectionModalProps {
-  btCube?: BluetoothPuzzle;
-  setBtCube: (btCube: BluetoothPuzzle) => any;
-  overrideCube: boolean;
-  setOverrideCube: (overrideCube: boolean) => any;
-}
+export const ConnectionModal = () => {
+  const [overrideCube, setOverrideCube] = useState(false);
+  
+  const btCubeContext = useContext(BTCubeContext);
 
-export const ConnectionModal = (props: ConnectionModalProps) => {
-  if (props.btCube || props.overrideCube) return <></>
+  if (overrideCube || btCubeContext.btCube) return <></>
 
   const connectCube = async () => {
     const cube = await connectSmartPuzzle();
-    props.setBtCube(cube);
+    btCubeContext.setBtCube!(cube);
   }
 
   return (
@@ -25,7 +24,7 @@ export const ConnectionModal = (props: ConnectionModalProps) => {
           not support web-bluetooth (such as Opera GX).
         </p>
         <div className="modal-action">
-          <button className="btn btn-secondary" onClick={() => props.setOverrideCube(true)}>I Don't Have One</button>
+          <button className="btn btn-secondary" onClick={() => setOverrideCube(true)}>I Don't Have One</button>
           <button className="btn btn-primary" onClick={connectCube}>Connect</button>
         </div>
       </div>

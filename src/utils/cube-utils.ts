@@ -23,7 +23,6 @@ export interface KState {
 }
 
 export function didSolve(initialState: KState, currentState: KState, alg: AlgWrapper): boolean {
-  
   const toCheck = currentState.applyAlg(alg.inverse!);
   const oldCorners = initialState.stateData.CORNERS;
   const newCorners = toCheck.stateData.CORNERS;
