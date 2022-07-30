@@ -1,5 +1,6 @@
 import { MoveEvent } from "cubing/bluetooth";
 import { useContext, useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { RingBuffer } from "ring-buffer-ts";
 import { BTCubeContext } from "../context/BTCubeContext";
 import { CaseContext } from "../context/CaseContext";
@@ -21,12 +22,14 @@ export const BTCubeHandler = () => {
     if (moves.includes("D' D' D' D'")) {
       caseContext.retryCase!();
       moveBuffer.clear();
+      toast("Retrying case", { duration: 2000 });
       return;
     }
 
     if (moves.includes("D D D D")) {
       caseContext.nextCase!();
       moveBuffer.clear();
+      toast("Skipping case", { duration: 2000 });
       return;
     }
   }
@@ -59,6 +62,7 @@ export const BTCubeHandler = () => {
             originalState && 
             currentCase.current && 
             didSolve(originalState.current, currentState, currentCase.current!)) {
+          console.log(`Case solved: ${currentCase.current!.string}`);
           caseContext.completeCase!();
           originalState.current = currentState;
           continue;
