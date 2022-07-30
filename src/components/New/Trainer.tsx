@@ -13,6 +13,7 @@ import { Footer } from "./Footer";
 import { Loading } from "./Loading";
 import { TrainerUI } from "./TrainerUI";
 import { BluetoothPuzzle } from "cubing/bluetooth";
+import { RingBuffer } from 'ring-buffer-ts';
 
 function getNextAlg(algSheet: AlgSheet): AlgWrapper {
   while (true) {
@@ -41,17 +42,36 @@ export const Trainer = () => {
 
   const [btCube, setBtCube] = useState<BluetoothPuzzle>();
   const [overrideCube, setOverrideCube] = useState(false);
-
+  const [moveBuffer] = useState<RingBuffer<string>>(new RingBuffer(8));
+  const [cubeState, setCubeState] = useState<any>();
+  
   const updateCubeState = async () => {
     while (true) {
       await (btCube as any).intervalHandler();
     }
   }
 
+  const processCubeCommands = () => {
+    if (!algSheet || !moveBuffer.isFull()) return;
+    const moves = moveBuffer.toArray().join(" ");
+    
+    if (moves.includes("D' D' D' D'")) {
+      setCurrentAlg(getNextAlg(algSheet));
+      moveBuffer.clear();
+      return;
+    }
+  }
+  
   useEffect(() => {
     if (!btCube) return;
-    btCube.addMoveListener((move) => console.log(move));
-    (btCube as any).stopTrackingMoves();
+
+    btCube.addMoveListener((move) => {
+      moveBuffer.add(move.latestMove.toString());
+      processCubeCommands();
+    });
+
+    const cube = btCube as any;
+    if (cube.intervalHandle) (btCube as any).stopTrackingMoves();
     updateCubeState();
   }, [btCube]);
 

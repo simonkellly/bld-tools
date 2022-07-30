@@ -21,7 +21,7 @@ export const ConnectionModal = (props: ConnectionModalProps) => {
         <h3 className="font-bold text-lg">No smart cube connected!</h3>
         <p className="py-4">
           Please connect a smart cube to use this trainer. At the moment only
-          the GAN 356i has been activly tested. Some devices and browsers may
+          the GAN 356i has been actively tested. Some devices and browsers may
           not support web-bluetooth (such as Opera GX).
         </p>
         <div className="modal-action">
