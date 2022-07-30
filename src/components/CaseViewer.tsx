@@ -48,7 +48,7 @@ export const CaseViewer = () => {
       </TrainerCard>
 
       <TrainerCard>
-        <div className="space-x-3 items-center text-center">
+        <div className="space-x-2 items-center text-center">
           <button className="btn btn-primary" onClick={caseContext.resetCases}>
             <span className="px-1">Reset</span>
           </button>
