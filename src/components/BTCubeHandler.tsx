@@ -59,7 +59,7 @@ export const BTCubeHandler = () => {
             originalState && 
             currentCase.current && 
             didSolve(originalState.current, currentState, currentCase.current!)) {
-          caseContext.nextCase!();
+          caseContext.completeCase!();
           originalState.current = currentState;
           continue;
         }

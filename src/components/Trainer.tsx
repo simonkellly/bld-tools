@@ -31,6 +31,10 @@ export const Trainer = () => {
     caseController && setCurrentCase(caseController.getNextCase());
   }
 
+  const doneCase = () => {
+    caseController && setCurrentCase(caseController.getNextCase(currentCase));
+  }
+
   const resetCases = () => {
     caseController && caseController.updatePotentialCases();
     nextCase();
@@ -41,7 +45,7 @@ export const Trainer = () => {
     currentCase: currentCase,
     setCurrentCase: setCurrentCase,
     resetCases: resetCases,
-    completeCase: nextCase,
+    completeCase: doneCase,
     retryCase: () => {
       resetListeners.forEach(resetListener => {
         try {

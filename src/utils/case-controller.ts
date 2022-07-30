@@ -78,15 +78,17 @@ export class CaseController {
     this.onUpdateCases && this.onUpdateCases();
   }
 
-  getNextCase(): AlgWrapper {
+  getNextCase(current?: AlgWrapper): AlgWrapper {
     if (this.remainingCases.length === 0) {
       toast("All cases complete, resetting", { duration: 2000, position: "bottom-right" });
       this.updatePotentialCases();
     }
     const index = Math.floor(Math.random() * this.remainingCases.length);
     const alg = this.remainingCases[index];
-    if (!this.allowMultiple){
-      this.remainingCases.splice(index, 1);
+    
+    if (!this.allowMultiple && current) {
+      const oldIndex = this.remainingCases.indexOf(current);
+      this.remainingCases.splice(oldIndex, 1);
     }
     return alg;
   }
