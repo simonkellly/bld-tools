@@ -68,8 +68,12 @@ export const BTCubeHandler = () => {
           continue;
         }
 
-      } catch (error) {
+      } catch (error: any) {
         console.error(error);
+        if (error.toString().includes("GATT Server is disconnected")) {
+          btCubeContext.setBtCube && btCubeContext.setBtCube(undefined as any);
+          return;
+        }
         await new Promise(resolve => setTimeout(resolve, 300));
       }
 
