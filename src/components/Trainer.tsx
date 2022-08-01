@@ -12,6 +12,7 @@ import { BTCubeHandler } from "./BTCubeHandler";
 import { CaseController, CaseControllerProps } from "../utils/case-controller";
 import { Toaster } from "react-hot-toast";
 import useStorageState from "react-use-storage-state";
+import { SettingsContext, SettingsProps } from "../context/SettingsContext";
 
 export const Trainer = () => {
   const [btCube, setBtCube] = useState<BluetoothPuzzle>();
@@ -19,6 +20,7 @@ export const Trainer = () => {
   const [currentCase, setCurrentCase] = useState<AlgWrapper>();
   const [caseController, setCaseController] = useState<CaseController>();
   const [resetListeners] = useState<(() => void)[]>([]);
+  const [showSolution, setShowSolution] = useStorageState("showSolution", false);
   const [render, setRender] = useState({});
 
   const forceRender = () => setRender({});
@@ -59,6 +61,11 @@ export const Trainer = () => {
     addRetryListener: (resetListener: () => void) => resetListeners.push(resetListener),
   }
 
+  const settingsContextValue: SettingsProps = {
+    alwaysShowSolution: showSolution,
+    setAlwaysShowSolution: setShowSolution,
+  }
+
   const [storedState, setStoredState] = useStorageState<CaseControllerProps>("case-controller", {});
 
   useEffect(() => {
@@ -71,19 +78,21 @@ export const Trainer = () => {
 
   if (!algSheet || !currentCase) return <Loading />;
   return (
-    <AlgSheetContext.Provider value={{ algSheet }}>
-      <BTCubeContext.Provider value={{ btCube, setBtCube }}>
-        <CaseContext.Provider value={caseContextValue}>
-          <BTCubeHandler/>
-          <div className="flex h-screen bg-base-300 overflow-y-scroll	overflow-visible">
-            <div className="m-auto space-y-3">
-              <Toaster/>
-              <TrainerUI />
+    <SettingsContext.Provider value={settingsContextValue}>
+      <AlgSheetContext.Provider value={{ algSheet }}>
+        <BTCubeContext.Provider value={{ btCube, setBtCube }}>
+          <CaseContext.Provider value={caseContextValue}>
+            <BTCubeHandler/>
+            <div className="flex h-screen bg-base-300 overflow-y-scroll	overflow-visible">
+              <div className="m-auto space-y-3">
+                <Toaster/>
+                <TrainerUI />
+              </div>
+              <ConnectionModal />
             </div>
-            <ConnectionModal />
-          </div>
-        </CaseContext.Provider>
-      </BTCubeContext.Provider>
-    </AlgSheetContext.Provider>
+          </CaseContext.Provider>
+        </BTCubeContext.Provider>
+      </AlgSheetContext.Provider>
+    </SettingsContext.Provider>
   );
 };

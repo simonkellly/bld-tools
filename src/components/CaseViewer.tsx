@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { CaseContext } from "../context/CaseContext";
+import { SettingsContext } from "../context/SettingsContext";
 import { TrainerCard } from "./TrainerCard";
 
 export const CaseViewer = () => {
   const [showAlg, setShowAlg] = useState(false);
-
+  const settingsContext = useContext(SettingsContext);
   const caseContext = useContext(CaseContext);
   const currentAlg = caseContext.currentCase!;
 
@@ -22,6 +23,8 @@ export const CaseViewer = () => {
     setShowAlg(false);
   }
 
+  const shouldShowAlg = showAlg || (settingsContext && settingsContext.alwaysShowSolution);
+
   return (
     <>
       <TrainerCard 
@@ -30,13 +33,13 @@ export const CaseViewer = () => {
         onMouseLeave={hideAlgOnLeave}
       >
         <div
-          className={(showAlg && "tooltip") || ""}
+          className={(shouldShowAlg && "tooltip") || ""}
           data-tip={currentAlg?.expanded}
         >
           <p
             className="text-2xl text-center font-semibold"
           >
-            {(showAlg && algString) || "Hover Over To Reveal Solution"}
+            {(shouldShowAlg && algString) || "Hover Over To Reveal Solution"}
           </p>
         </div>
       </TrainerCard>

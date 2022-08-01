@@ -1,6 +1,5 @@
-import {
-  faBars,
-  faCubes,
+import {  faCubes,
+  faRepeat,
   faShuffle,
   faSliders,
 } from "@fortawesome/free-solid-svg-icons";
@@ -59,7 +58,7 @@ export const TrainerUI = () => {
 
           {<span className="indicator-item badge badge-primary">{controller.remainingCases.length}</span>}
           <button className="btn btn-ghost" aria-label="sorting" onClick={toggleMultiple}>
-            <FontAwesomeIcon icon={controller.allowMultiple ? faShuffle : faBars} className="text-2xl" />
+            <FontAwesomeIcon icon={controller.allowMultiple ? faShuffle : faRepeat} className="text-2xl" />
           </button>
         </div>
       </div>
