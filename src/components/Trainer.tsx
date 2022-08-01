@@ -21,6 +21,7 @@ export const Trainer = () => {
   const [caseController, setCaseController] = useState<CaseController>();
   const [resetListeners] = useState<(() => void)[]>([]);
   const [showSolution, setShowSolution] = useStorageState("showSolution", false);
+  const [darkMode, setDarkMode] = useStorageState("darkMode", false);
   const [_, setRender] = useState({});
 
   const forceRender = () => setRender({});
@@ -64,7 +65,13 @@ export const Trainer = () => {
   const settingsContextValue: SettingsProps = {
     alwaysShowSolution: showSolution,
     setAlwaysShowSolution: setShowSolution,
+    darkMode: darkMode,
+    setDarkMode: setDarkMode,
   }
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
+  })
 
   const [storedState, setStoredState] = useStorageState<CaseControllerProps>("case-controller", {});
 

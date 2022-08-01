@@ -19,6 +19,18 @@ export const Settings = () => {
 
       <div className="form-control">
         <label className="label cursor-pointer">
+          <span className="label-text">Dark Mode</span>
+          <input
+            type="checkbox"
+            className="toggle toggle-primary"
+            checked={settingsContext.darkMode}
+            onChange={() => settingsContext.setDarkMode!(!settingsContext.darkMode)}
+          />
+        </label>
+      </div>
+
+      <div className="form-control">
+        <label className="label cursor-pointer">
           <span className="label-text">Always Show Solution</span>
           <input
             type="checkbox"
