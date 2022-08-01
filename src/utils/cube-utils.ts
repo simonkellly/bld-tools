@@ -6,11 +6,12 @@ export function stateEquals(a: number[], b: number[]): boolean {
   if (a == undefined || b == undefined) return false;
 
   if (a.length !== b.length) return false;
-  if (a.length < 1 || b.length < 1) return false;
+  if (a.length < 4 || b.length < 4) return false;
   
   for (var i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false;
   }
+  
   return true;
 }
 
@@ -23,7 +24,8 @@ export interface KState {
 }
 
 export function didSolve(initialState: KState, currentState: KState, alg: AlgWrapper): boolean {
-  const toCheck = currentState.applyAlg(alg.inverse!);
+  const toCheck = currentState.applyAlg(alg.alg.invert());
+
   const oldCorners = initialState.stateData.CORNERS;
   const newCorners = toCheck.stateData.CORNERS;
 
@@ -31,7 +33,7 @@ export function didSolve(initialState: KState, currentState: KState, alg: AlgWra
   const newEdges = toCheck.stateData.EDGES;
 
   return stateEquals(oldCorners.orientation, newCorners.orientation) &&
-         stateEquals(oldCorners.pieces, oldCorners.pieces) &&
-         stateEquals(oldEdges.orientation, oldEdges.orientation) &&
-         stateEquals(oldEdges.pieces, newEdges.pieces)
+         stateEquals(oldCorners.pieces, newCorners.pieces) &&
+         stateEquals(oldEdges.orientation, newEdges.orientation) &&
+         stateEquals(oldEdges.pieces, newEdges.pieces);
 }

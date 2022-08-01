@@ -21,7 +21,7 @@ export const Trainer = () => {
   const [caseController, setCaseController] = useState<CaseController>();
   const [resetListeners] = useState<(() => void)[]>([]);
   const [showSolution, setShowSolution] = useStorageState("showSolution", false);
-  const [render, setRender] = useState({});
+  const [_, setRender] = useState({});
 
   const forceRender = () => setRender({});
 

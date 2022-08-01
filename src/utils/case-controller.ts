@@ -1,5 +1,4 @@
 import toast from "react-hot-toast";
-import useStorageState from "react-use-storage-state";
 import AlgSheet from "./alg-sheet";
 import AlgWrapper from "./alg-wrapper";
 
@@ -43,7 +42,6 @@ export class CaseController {
         });
       });
     }
-
     
     this.updatePotentialCases();
   }
@@ -79,9 +77,9 @@ export class CaseController {
       if (oldIndex > -1) {
         this.remainingCases.splice(oldIndex, 1);
       } else {
-        console.log("Could not find old index");
+        console.log("Could not find old index: " + `${current.case.first}${current.case.second}`);
         console.log(current);
-        console.log(this.remainingCases.map(alg => alg.case));
+        console.log(this.remainingCases.map(alg => `${alg.case.first}${alg.case.second}`));
       }
     }
 

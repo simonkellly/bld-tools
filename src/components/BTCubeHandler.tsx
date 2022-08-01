@@ -35,6 +35,7 @@ export const BTCubeHandler = () => {
   }
 
   const handleCubeState = async () => {
+    console.log("Initializing BT Cube...")
     const btCube = btCubeContext.btCube;
     const cube = btCube as any;
 
@@ -56,14 +57,14 @@ export const BTCubeHandler = () => {
         if (!originalState.current || shouldResetState.current) {
           originalState.current = currentState;
           shouldResetState.current = false;
+          continue;
         }
 
         if (currentState && 
             originalState && 
             currentCase.current && 
             didSolve(originalState.current, currentState, currentCase.current!)) {
-          console.log(`Case solved: ${currentCase.current!.string}`);
-          caseContext.completeCase!();
+          caseContext.setCurrentCase!(caseContext.caseController!.getNextCase!(currentCase.current));
           originalState.current = currentState;
           continue;
         }
