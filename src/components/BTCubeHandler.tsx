@@ -5,7 +5,6 @@ import { RingBuffer } from "ring-buffer-ts";
 import { AudioPlayerContext } from "../context/AudioPlayerContext";
 import { BTCubeContext } from "../context/BTCubeContext";
 import { CaseContext } from "../context/CaseContext";
-import { SettingsContext } from "../context/SettingsContext";
 import AlgWrapper from "../utils/alg-wrapper";
 import { didSolve, KState } from "../utils/cube-utils";
 
@@ -25,6 +24,7 @@ export const BTCubeHandler = () => {
     if (moves.includes("D' D' D' D'")) {
       caseContext.retryCase!();
       moveBuffer.clear();
+      audioContext.toSay.push("Reset");
       toast("Retrying case", { duration: 2000 });
       return;
     }

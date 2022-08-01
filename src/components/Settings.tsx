@@ -31,7 +31,7 @@ export const Settings = () => {
         </label>
 
         <label className="label cursor-pointer">
-          <span className="label-text">Always show olution</span>
+          <span className="label-text">Always show solution</span>
           <input
             type="checkbox"
             className="toggle toggle-primary"
@@ -45,7 +45,7 @@ export const Settings = () => {
         </label>
 
         <label className="label cursor-pointer">
-          <span className="label-text">Say next case when solved</span>
+          <span className="label-text">Say case with TTS</span>
           <input
             type="checkbox"
             className="toggle toggle-primary"
