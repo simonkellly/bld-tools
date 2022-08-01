@@ -53,19 +53,12 @@ export class CaseController {
     if (activeLetters.length === 0) activeLetters = this.letterStates.map(letterState => letterState.letter);
 
     this.remainingCases = [];
-    this.algSheet.algs.forEach(alg => {
-      if (this.remainingCases.find((remainingCase) => remainingCase == alg)) return;
-      if (this.allowInverses) {
-        if (activeLetters.find(letter => letter == alg.case.second)) {
-          this.remainingCases.push(alg);
-          return;
-        }
+
+    this.remainingCases = this.algSheet.algs.filter(alg => {
+      if (activeLetters.includes(alg.case.first) || (activeLetters.includes(alg.case.second) && this.allowInverses)) {
+        return true;
       }
-      
-      if (activeLetters.find(letter => letter == alg.case.first)) {
-        this.remainingCases.push(alg);
-        return;
-      }
+      return false;
     });
 
     const newStoredState: CaseControllerProps = {
@@ -79,17 +72,25 @@ export class CaseController {
   }
 
   getNextCase(current?: AlgWrapper): AlgWrapper {
+    if (!this.allowMultiple && current) {
+      const oldIndex = this.remainingCases.findIndex((algCase) => {
+        return algCase.case.first === current.case.first && algCase.case.second === current.case.second;
+      });
+      if (oldIndex > -1) {
+        this.remainingCases.splice(oldIndex, 1);
+      } else {
+        console.log("Could not find old index");
+        console.log(current);
+        console.log(this.remainingCases.map(alg => alg.case));
+      }
+    }
+
     if (this.remainingCases.length === 0) {
-      toast("All cases complete, resetting", { duration: 2000, position: "bottom-right" });
+      toast("All cases complete, resetting", { duration: 2000 });
       this.updatePotentialCases();
     }
+
     const index = Math.floor(Math.random() * this.remainingCases.length);
-    const alg = this.remainingCases[index];
-    
-    if (!this.allowMultiple && current) {
-      const oldIndex = this.remainingCases.indexOf(current);
-      this.remainingCases.splice(oldIndex, 1);
-    }
-    return alg;
+    return this.remainingCases[index];
   }
 }

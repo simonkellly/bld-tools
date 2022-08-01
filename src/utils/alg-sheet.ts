@@ -44,16 +44,6 @@ export default class AlgSheet {
     }
   }
 
-  private getAlgArray() {
-    const array = [];
-    for (const first in this.algArray) {
-      for (const second in this.algArray[first]) {
-        array.push(this.algArray[first][second]);
-      }
-    }
-    return array;
-  }
-
   private getAlgFromInverse(first: string, second: string): AlgWrapper {
     const algSet = this.algArray[second];
     if (algSet == undefined) {
@@ -72,6 +62,20 @@ export default class AlgSheet {
     const alg = algSet[second];
     if (alg == undefined) return undefined;
     return alg;
+  }
+
+  private getAlgArray() {
+    const algs: AlgWrapper[] = [];
+    this.letters.forEach(firstLetter => {
+      this.letters.forEach(secondLetter => {
+        const alg = this.getAlg(firstLetter, secondLetter);
+        if (alg != undefined) {
+          algs.push(alg);
+        }
+      });
+    });
+
+    return algs;
   }
 }
 
