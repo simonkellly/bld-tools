@@ -35,7 +35,6 @@ export const BTCubeHandler = () => {
   }
 
   const handleCubeState = async () => {
-    console.log("Initializing BT Cube...")
     const btCube = btCubeContext.btCube;
     const cube = btCube as any;
 
