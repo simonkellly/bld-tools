@@ -9,7 +9,7 @@ export const Settings = () => {
   const resetSettings = () => {
     window.localStorage.clear();
     window.location.reload();
-  }
+  };
 
   return (
     <TrainerCard className="px-3">
@@ -19,31 +19,68 @@ export const Settings = () => {
 
       <div className="form-control">
         <label className="label cursor-pointer">
-          <span className="label-text">Dark Mode</span>
+          <span className="label-text">Dark mode</span>
           <input
             type="checkbox"
             className="toggle toggle-primary"
             checked={settingsContext.darkMode}
-            onChange={() => settingsContext.setDarkMode!(!settingsContext.darkMode)}
+            onChange={() =>
+              settingsContext.setDarkMode!(!settingsContext.darkMode)
+            }
           />
         </label>
-      </div>
 
-      <div className="form-control">
         <label className="label cursor-pointer">
-          <span className="label-text">Always Show Solution</span>
+          <span className="label-text">Always show olution</span>
           <input
             type="checkbox"
             className="toggle toggle-primary"
             checked={settingsContext.alwaysShowSolution}
-            onChange={() => settingsContext.setAlwaysShowSolution!(!settingsContext.alwaysShowSolution)}
+            onChange={() =>
+              settingsContext.setAlwaysShowSolution!(
+                !settingsContext.alwaysShowSolution
+              )
+            }
           />
         </label>
+
+        <label className="label cursor-pointer">
+          <span className="label-text">Say next case when solved</span>
+          <input
+            type="checkbox"
+            className="toggle toggle-primary"
+            checked={settingsContext.ttsEnabled}
+            onChange={() =>
+              settingsContext.setTtsEnabled!(
+                !settingsContext.ttsEnabled
+              )
+            }
+          />
+        </label>
+
+        {settingsContext.ttsEnabled && (
+          <>
+            <label className="label">
+              <span className="label-text">TTS volume</span>
+            </label>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={settingsContext.volume}
+              onChange={(e) => settingsContext.setVolume!(parseInt(e.target.value))}
+              className="range range-xs range-primary"
+            />
+          </>
+        )}
+        
       </div>
 
       <br />
 
-      <button className="btn btn-block btn-error" onClick={resetSettings}>Reset Trainer</button>
+      <button className="btn btn-block btn-error" onClick={resetSettings}>
+        Reset Trainer
+      </button>
     </TrainerCard>
   );
 };

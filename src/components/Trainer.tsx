@@ -13,6 +13,8 @@ import { CaseController, CaseControllerProps } from "../utils/case-controller";
 import { Toaster } from "react-hot-toast";
 import useStorageState from "react-use-storage-state";
 import { SettingsContext, SettingsProps } from "../context/SettingsContext";
+import { AudioHandler } from "./AudioHandler";
+import { AudioPlayerContext, AudioPlayerProps } from "../context/AudioPlayerContext";
 
 export const Trainer = () => {
   const [btCube, setBtCube] = useState<BluetoothPuzzle>();
@@ -22,9 +24,23 @@ export const Trainer = () => {
   const [resetListeners] = useState<(() => void)[]>([]);
   const [showSolution, setShowSolution] = useStorageState("showSolution", false);
   const [darkMode, setDarkMode] = useStorageState("darkMode", false);
+  const [ttsEnabled, setTtsEnabled] = useStorageState("tts", false);
+  const [ttsVolume, setTtsVolume] = useStorageState("ttsVolume", 50);
+
   const [_, setRender] = useState({});
+  const [clicked, setClicked] = useState(false);
 
   const forceRender = () => setRender({});
+
+  const handleClick = () => {
+    document.removeEventListener('click', handleClick);
+    setClicked(true);
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
+    
+  }, []);
 
   useEffect(() => {
     fetchGoogleSheet().then(setAlgSheet);
@@ -67,11 +83,21 @@ export const Trainer = () => {
     setAlwaysShowSolution: setShowSolution,
     darkMode: darkMode,
     setDarkMode: setDarkMode,
+    ttsEnabled: ttsEnabled,
+    setTtsEnabled: setTtsEnabled,
+    volume: ttsVolume,
+    setVolume: setTtsVolume,
   }
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
   })
+
+  const [toSay, setToStay] = useState<string[]>([]);
+
+  const audioContextValue: AudioPlayerProps = {
+    toSay: toSay
+  }
 
   const [storedState, setStoredState] = useStorageState<CaseControllerProps>("case-controller", {});
 
@@ -89,14 +115,17 @@ export const Trainer = () => {
       <AlgSheetContext.Provider value={{ algSheet }}>
         <BTCubeContext.Provider value={{ btCube, setBtCube }}>
           <CaseContext.Provider value={caseContextValue}>
-            <BTCubeHandler/>
-            <div className="flex h-screen bg-base-300 overflow-y-scroll	overflow-visible">
-              <div className="m-auto space-y-3">
-                <Toaster/>
-                <TrainerUI />
+            <AudioPlayerContext.Provider value={audioContextValue}>
+              {clicked && <AudioHandler />}
+              <BTCubeHandler/>
+              <div className="flex h-screen bg-base-300 overflow-y-scroll	overflow-visible">
+                <div className="m-auto space-y-3">
+                  <Toaster/>
+                  <TrainerUI />
+                </div>
+                <ConnectionModal />
               </div>
-              <ConnectionModal />
-            </div>
+            </AudioPlayerContext.Provider>
           </CaseContext.Provider>
         </BTCubeContext.Provider>
       </AlgSheetContext.Provider>
