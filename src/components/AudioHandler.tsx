@@ -16,6 +16,7 @@ export const AudioHandler = () => {
     }
 
     let modPhrase = phrase.replace("_A", "Ahe");
+    modPhrase = modPhrase.replace("'_", " Prime");
     modPhrase = modPhrase.replace("_", "");
 
     speech.current.text = modPhrase;

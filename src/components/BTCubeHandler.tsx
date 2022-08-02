@@ -26,15 +26,26 @@ export const BTCubeHandler = () => {
       moveBuffer.clear();
       audioContext.toSay.push("Reset");
       audioContext.toSay.push("_" + currentCase.current?.case.first + " " + "_" + currentCase.current?.case.second);
-
       toast("Retrying case", { duration: 2000 });
       return;
     }
 
     if (moves.includes("D D D D")) {
-      caseContext.nextCase!();
+      const nextCase = caseContext.caseController!.getNextCase();
+      caseContext.setCurrentCase!(nextCase);
       moveBuffer.clear();
       toast("Skipping case", { duration: 2000 });
+      audioContext.toSay.push("Skipping");
+      audioContext.toSay.push("_" + nextCase.case.first + " " + "_" + nextCase.case.second);
+      return;
+    }
+
+    if (moves.includes("D' D D' D")) {
+      const hint = currentCase.current?.expanded?.split(" ")[0]!;
+      moveBuffer.clear();
+      toast(`Hint: ${hint}`, { duration: 2000 });
+      audioContext.toSay.push(hint + "_");
+      
       return;
     }
   }
