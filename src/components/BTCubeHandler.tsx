@@ -25,6 +25,8 @@ export const BTCubeHandler = () => {
       caseContext.retryCase!();
       moveBuffer.clear();
       audioContext.toSay.push("Reset");
+      audioContext.toSay.push("_" + currentCase.current?.case.first + " " + "_" + currentCase.current?.case.second);
+
       toast("Retrying case", { duration: 2000 });
       return;
     }
