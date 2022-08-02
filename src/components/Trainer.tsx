@@ -15,8 +15,10 @@ import useStorageState from "react-use-storage-state";
 import { SettingsContext, SettingsProps } from "../context/SettingsContext";
 import { AudioHandler } from "./AudioHandler";
 import { AudioPlayerContext, AudioPlayerProps } from "../context/AudioPlayerContext";
+import { HelpModal } from "./HelpModal";
 
 export const Trainer = () => {
+  const [helpOpen, setHelpOpen] = useState(false);
   const [btCube, setBtCube] = useState<BluetoothPuzzle>();
   const [algSheet, setAlgSheet] = useState<AlgSheet>();
   const [currentCase, setCurrentCase] = useState<AlgWrapper>();
@@ -79,6 +81,8 @@ export const Trainer = () => {
   }
 
   const settingsContextValue: SettingsProps = {
+    helpOpen: helpOpen,
+    setHelpOpen: setHelpOpen,
     alwaysShowSolution: showSolution,
     setAlwaysShowSolution: setShowSolution,
     darkMode: darkMode,
@@ -123,6 +127,7 @@ export const Trainer = () => {
                   <Toaster/>
                   <TrainerUI />
                 </div>
+                <HelpModal />
                 <ConnectionModal />
               </div>
             </AudioPlayerContext.Provider>

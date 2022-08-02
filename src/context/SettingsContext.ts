@@ -1,6 +1,8 @@
 import { createContext } from "react";
 
 export interface SettingsProps {
+  helpOpen?: boolean;
+  setHelpOpen?: (helpOpen: boolean) => void;
   alwaysShowSolution?: boolean;
   setAlwaysShowSolution?: (alwaysShowSolution: boolean) => any;
   darkMode?: boolean;

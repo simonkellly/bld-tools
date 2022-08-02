@@ -1,3 +1,5 @@
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import useStorageState from "react-use-storage-state";
 import { SettingsContext } from "../context/SettingsContext";
@@ -16,6 +18,11 @@ export const Settings = () => {
       <p className="text-2xl text-center font-semibold swap-on pb-3">
         Settings
       </p>
+
+      <button className="btn gap-2" onClick={() => settingsContext.setHelpOpen!(true)}>
+        <FontAwesomeIcon icon={faInfoCircle}/>
+        About BLD Tools
+      </button>
 
       <div className="form-control">
         <label className="label cursor-pointer">
@@ -51,9 +58,7 @@ export const Settings = () => {
             className="toggle toggle-primary"
             checked={settingsContext.ttsEnabled}
             onChange={() =>
-              settingsContext.setTtsEnabled!(
-                !settingsContext.ttsEnabled
-              )
+              settingsContext.setTtsEnabled!(!settingsContext.ttsEnabled)
             }
           />
         </label>
@@ -68,12 +73,13 @@ export const Settings = () => {
               min="0"
               max="100"
               value={settingsContext.volume}
-              onChange={(e) => settingsContext.setVolume!(parseInt(e.target.value))}
+              onChange={(e) =>
+                settingsContext.setVolume!(parseInt(e.target.value))
+              }
               className="range range-xs range-primary"
             />
           </>
         )}
-        
       </div>
 
       <br />
