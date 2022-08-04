@@ -14,11 +14,13 @@ declare type AlgCollection = {
 
 export default class AlgSheet {
   algArray: AlgCollection;
+  algs: AlgWrapper[];
   letters: string[];
   constructor(letters: string[], algArray: AlgCollection) {
     this.algArray = algArray;
     this.letters = letters;
     this.generateInverses();
+    this.algs = this.getAlgArray();
   }
 
   private generateInverses(): void {
@@ -60,6 +62,20 @@ export default class AlgSheet {
     const alg = algSet[second];
     if (alg == undefined) return undefined;
     return alg;
+  }
+
+  private getAlgArray() {
+    const algs: AlgWrapper[] = [];
+    this.letters.forEach(firstLetter => {
+      this.letters.forEach(secondLetter => {
+        const alg = this.getAlg(firstLetter, secondLetter);
+        if (alg != undefined) {
+          algs.push(alg);
+        }
+      });
+    });
+
+    return algs;
   }
 }
 
