@@ -21,6 +21,7 @@ export const HelpModal = () => {
         </p>
           
           <div className="mockup-code">
+            <pre data-prefix="$" className="text"><code>Start and end a command with L' L</code></pre> 
             <pre data-prefix="$" className="text-info"><code>D' D  D' D  -&gt; Hints the next move</code></pre> 
             <pre data-prefix="$" className="text-warning"><code>D' D' D' D' -&gt; Retries the current case</code></pre> 
             <pre data-prefix="$" className="text-error"><code>D  D  D  D  -&gt; Skips to the next case</code></pre> 
