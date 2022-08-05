@@ -108,7 +108,10 @@ export const Trainer = () => {
   useEffect(() => {
     if (!algSheet) return;
     const controller = new CaseController(algSheet, storedState, setStoredState);
-    controller.onUpdateCases = forceRender;
+    controller.onUpdateCases = (wasEmpty) => {
+      forceRender();
+      if (wasEmpty) toSay.push("Finished");
+    };
     setCaseController(controller);
     setCurrentCase(controller.getNextCase());
   }, [algSheet]);

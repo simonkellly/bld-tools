@@ -19,7 +19,7 @@ export class CaseController {
   allowInverses: boolean = true;
   allowMultiple: boolean = false;
   remainingCases: AlgWrapper[] = [];
-  onUpdateCases?: () => void;
+  onUpdateCases?: (wasEmpty: boolean) => void;
 
   private storedState: CaseControllerProps;
   private setStoredState: (state: CaseControllerProps) => void;
@@ -47,6 +47,7 @@ export class CaseController {
   }
 
   updatePotentialCases() {
+    const wasEmpty = this.remainingCases.length === 0;
     let activeLetters = this.letterStates.filter(letterState => letterState.selected).map(letterState => letterState.letter);
     if (activeLetters.length === 0) activeLetters = this.letterStates.map(letterState => letterState.letter);
 
@@ -66,7 +67,7 @@ export class CaseController {
     }
 
     this.setStoredState(newStoredState);
-    this.onUpdateCases && this.onUpdateCases();
+    this.onUpdateCases && this.onUpdateCases(wasEmpty);
   }
 
   getNextCase(current?: AlgWrapper): AlgWrapper {
@@ -84,6 +85,7 @@ export class CaseController {
     }
 
     if (this.remainingCases.length === 0) {
+      
       toast("All cases complete, resetting", { duration: 2000 });
       this.updatePotentialCases();
     }
