@@ -20,9 +20,7 @@ export const BTCubeHandler = () => {
   const originalState = useRef<KState | undefined>(undefined);
 
   const processCubeCommands = () => {
-    const trigger = "L' L";
     const moves = moveBuffer.toArray().join(" ");
-    if (!moves.startsWith(trigger) || !moves.endsWith(trigger)) return;
     if (moves.includes("D' D' D' D'")) {
       caseContext.retryCase!();
       moveBuffer.clear();
