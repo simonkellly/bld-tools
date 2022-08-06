@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CaseContext } from "../context/CaseContext";
 import { SettingsContext } from "../context/SettingsContext";
 import { TrainerCard } from "./TrainerCard";
@@ -23,6 +23,30 @@ export const CaseViewer = () => {
     setShowAlg(false);
   }
 
+  useEffect(() => {
+    const handleDown = (e: KeyboardEvent) => {
+      if (e.key == " ") {
+        e.preventDefault();
+        setShowAlg(true);
+      }
+    };
+
+    const handleUp = (e: KeyboardEvent) => {
+      if (e.key == " ") {
+        e.preventDefault();
+        setShowAlg(false);
+      }
+    }
+  
+    document.body.addEventListener('keydown', handleDown);
+    document.body.addEventListener('keyup', handleUp);
+
+    return () => {
+      document.body.removeEventListener('keydown', handleDown);
+      document.body.removeEventListener('keyup', handleUp);
+    };
+  }, []);
+  
   const shouldShowAlg = showAlg || (settingsContext && settingsContext.alwaysShowSolution);
 
   return (

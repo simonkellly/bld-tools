@@ -15,7 +15,10 @@ export const HelpModal = () => {
         <p className="py-4">
           Welcome to BLD Tools, a collection of tools I use for getting better at blindfolded speedsolving events.
           This tool is primarly to be used in combination with a bluetooth smart cube but can be used on its own.
+          <br/><br/>
+          Press and hold space or hover over the relavent label to view the solution to the current case.
         </p>
+        
         <p className="pb-2">
           There are some integrated commands which can be executed from the cube these are as follows:
         </p>
