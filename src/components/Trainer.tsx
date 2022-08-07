@@ -16,6 +16,7 @@ import { SettingsContext, SettingsProps } from "../context/SettingsContext";
 import { AudioHandler } from "./AudioHandler";
 import { AudioPlayerContext, AudioPlayerProps } from "../context/AudioPlayerContext";
 import { HelpModal } from "./HelpModal";
+import { StatsContext } from "../context/StatsContext";
 
 export const Trainer = () => {
   const [helpOpen, setHelpOpen] = useState(false);
@@ -28,6 +29,7 @@ export const Trainer = () => {
   const [darkMode, setDarkMode] = useStorageState("darkMode", false);
   const [ttsEnabled, setTtsEnabled] = useStorageState("tts", false);
   const [ttsVolume, setTtsVolume] = useStorageState("ttsVolume", 50);
+  const [trainedCount, setTrainedCount] = useStorageState("trainedCount", 0);
 
   const [_, setRender] = useState({});
   const [clicked, setClicked] = useState(false);
@@ -53,6 +55,7 @@ export const Trainer = () => {
   }
 
   const doneCase = () => {
+    setTrainedCount(trainedCount + 1);
     caseController && setCurrentCase(caseController.getNextCase(currentCase));
   }
 
@@ -123,16 +126,18 @@ export const Trainer = () => {
         <BTCubeContext.Provider value={{ btCube, setBtCube }}>
           <CaseContext.Provider value={caseContextValue}>
             <AudioPlayerContext.Provider value={audioContextValue}>
-              {clicked && <AudioHandler />}
-              <BTCubeHandler/>
-              <div className="flex h-screen bg-base-300 overflow-y-scroll	overflow-visible">
-                <div className="m-auto space-y-3">
-                  <Toaster/>
-                  <TrainerUI />
+              <StatsContext.Provider value={{ trainedCount, setTrainedCount }}>
+                {clicked && <AudioHandler />}
+                <BTCubeHandler/>
+                <div className="flex h-screen bg-base-300 overflow-y-scroll	overflow-visible">
+                  <div className="m-auto space-y-3">
+                    <Toaster/>
+                    <TrainerUI />
+                  </div>
+                  <HelpModal />
+                  <ConnectionModal />
                 </div>
-                <HelpModal />
-                <ConnectionModal />
-              </div>
+              </StatsContext.Provider>
             </AudioPlayerContext.Provider>
           </CaseContext.Provider>
         </BTCubeContext.Provider>

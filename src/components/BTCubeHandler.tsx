@@ -5,6 +5,7 @@ import { RingBuffer } from "ring-buffer-ts";
 import { AudioPlayerContext } from "../context/AudioPlayerContext";
 import { BTCubeContext } from "../context/BTCubeContext";
 import { CaseContext } from "../context/CaseContext";
+import { StatsContext } from "../context/StatsContext";
 import AlgWrapper from "../utils/alg-wrapper";
 import { didSolve, KState } from "../utils/cube-utils";
 
@@ -13,6 +14,7 @@ export const BTCubeHandler = () => {
   const btCubeContext = useContext(BTCubeContext);
   const caseContext = useContext(CaseContext);
   const audioContext = useContext(AudioPlayerContext);
+  const statsContext = useContext(StatsContext);
 
   const currentCase = useRef<AlgWrapper | undefined>(undefined);
   const addedListener = useRef(false);
@@ -83,6 +85,7 @@ export const BTCubeHandler = () => {
           caseContext.setCurrentCase!(nextCase);
           originalState.current = currentState;
           audioContext.toSay.push("_" + nextCase.case.first + " " + "_" + nextCase.case.second);
+          statsContext.setTrainedCount(statsContext.trainedCount + 1);
           continue;
         }
 
