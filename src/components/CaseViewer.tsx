@@ -1,3 +1,5 @@
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { CaseContext } from "../context/CaseContext";
 import { SettingsContext } from "../context/SettingsContext";
@@ -69,6 +71,11 @@ export const CaseViewer = () => {
       </TrainerCard>
 
       <TrainerCard className="select-none">
+        <div className="card-actions justify-end">
+          <button className={`btn btn-square mr-2.5`}>
+            <FontAwesomeIcon icon={faStar} className="text-center" />
+          </button>
+        </div>
         <p className="text-9xl text-center font-bold">{caseString}</p>
       </TrainerCard>
 
