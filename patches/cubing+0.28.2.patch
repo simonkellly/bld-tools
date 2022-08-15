@@ -1,18 +1,18 @@
 diff --git a/node_modules/cubing/dist/esm/bluetooth/index.js b/node_modules/cubing/dist/esm/bluetooth/index.js
-index 571dacc..1c9667a 100644
+index 48942ea..d8748fc 100644
 --- a/node_modules/cubing/dist/esm/bluetooth/index.js
 +++ b/node_modules/cubing/dist/esm/bluetooth/index.js
-@@ -320,7 +320,8 @@ async function decryptState(data, aesKey) {
+@@ -343,7 +343,8 @@ async function decryptState(data, aesKey) {
    if (probablyDecodedCorrectly(copy)) {
      return copy;
    }
 -  throw new Error("Invalid Gan cube state");
-+  // console.log("Invalid Gan cube state");
++  // throw new Error("Invalid Gan cube state");
 +  return copy;
  }
  var PhysicalState = class {
    constructor(dataView, timeStamp) {
-@@ -346,7 +347,7 @@ var PhysicalState = class {
+@@ -372,7 +373,7 @@ var PhysicalState = class {
      const w = wSquared > 0 ? Math.sqrt(wSquared) : 0;
      const quat = new Quaternion2(x, y, z, w);
      if (!homeQuatInverse) {
@@ -21,7 +21,7 @@ index 571dacc..1c9667a 100644
      }
      return quat.clone().multiply(homeQuatInverse.clone());
    }
-@@ -885,7 +886,7 @@ var GoCube = class extends BluetoothPuzzle {
+@@ -963,7 +964,7 @@ var GoCube = class extends BluetoothPuzzle {
      this.alg = alg || new Alg();
    }
    resetOrientation() {
@@ -30,7 +30,7 @@ index 571dacc..1c9667a 100644
      this.currentQuat = new Quaternion3(0, 0, 0, 1);
      this.lastTarget = new Quaternion3(0, 0, 0, 1);
    }
-@@ -912,7 +913,7 @@ var GoCube = class extends BluetoothPuzzle {
+@@ -992,7 +993,7 @@ var GoCube = class extends BluetoothPuzzle {
        const quat = new Quaternion3(coords[0], coords[1], coords[2], coords[3]);
        this.lastRawQuat = quat.clone();
        if (!this.homeQuatInverse) {
