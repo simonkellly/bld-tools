@@ -71,8 +71,8 @@ export const CaseViewer = () => {
       </TrainerCard>
 
       <TrainerCard className="select-none">
-        <div className="card-actions justify-end">
-          <button className={`btn btn-square mr-2.5`}>
+        <div className="card-actions absolute right-3 top-3">
+          <button className={`btn btn-square`}>
             <FontAwesomeIcon icon={faStar} className="text-center" />
           </button>
         </div>
