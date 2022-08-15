@@ -1,4 +1,4 @@
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faThumbTack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from "react";
 import { AlgSheetContext } from "../context/AlgSheetContext";
@@ -72,7 +72,7 @@ export const CaseSelector = () => {
             update();
           }}
         >
-          <FontAwesomeIcon icon={faStar} className="text-center mb-0.5"/>
+          <FontAwesomeIcon icon={faThumbTack} className="text-center mb-0.5"/>
         </button>
       </div>
       <div className="space-x-3 items-center text-center pt-3">

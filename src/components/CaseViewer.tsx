@@ -1,4 +1,4 @@
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faThumbTack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { CaseContext } from "../context/CaseContext";
@@ -91,10 +91,10 @@ export const CaseViewer = () => {
       <TrainerCard className="select-none">
         <div className="card-actions absolute right-3 top-3">
           <button 
-            className={`btn btn-square ${!getFavourite() && "btn-outline" || "btn-primary"}`}
+            className={`btn btn-square ${!getFavourite() && "btn-ghost" || "btn-primary"}`}
             onClick={setFavorite}
           >
-            <FontAwesomeIcon icon={faStar} className="text-center" />
+            <FontAwesomeIcon icon={faThumbTack} className="text-center text-2xl" />
           </button>
         </div>
         <p className="text-9xl text-center font-bold">{caseString}</p>
