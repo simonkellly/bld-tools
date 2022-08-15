@@ -9,6 +9,8 @@ interface LetterState {
 
 export interface CaseControllerProps {
   letterStates?: LetterState[];
+  favourites?: string[];
+  showFavourites?: boolean;
   allowMultiple?: boolean;
   allowInverses?: boolean;
 }
@@ -16,6 +18,8 @@ export interface CaseControllerProps {
 export class CaseController {
   algSheet: AlgSheet;
   letterStates: LetterState[] = [];
+  favourites: string[] = [];
+  showFavourites: boolean = false;
   allowInverses: boolean = true;
   allowMultiple: boolean = false;
   remainingCases: AlgWrapper[] = [];
@@ -29,6 +33,8 @@ export class CaseController {
     this.storedState = storedState;
     this.setStoredState = setStoredState;
 
+    this.favourites = this.storedState.favourites || [];
+    this.showFavourites = this.storedState.showFavourites || false;
     this.allowInverses = storedState.allowInverses == undefined ? true : storedState.allowInverses;
     this.allowMultiple = storedState.allowMultiple == undefined ? false : storedState.allowMultiple;
 
@@ -49,7 +55,7 @@ export class CaseController {
   updatePotentialCases() {
     const wasEmpty = this.remainingCases.length === 0;
     let activeLetters = this.letterStates.filter(letterState => letterState.selected).map(letterState => letterState.letter);
-    if (activeLetters.length === 0) activeLetters = this.letterStates.map(letterState => letterState.letter);
+    if (activeLetters.length === 0 && (!this.showFavourites || this.favourites.length === 0)) activeLetters = this.letterStates.map(letterState => letterState.letter);
 
     this.remainingCases = [];
 
@@ -57,11 +63,18 @@ export class CaseController {
       if (activeLetters.includes(alg.case.first) || (activeLetters.includes(alg.case.second) && this.allowInverses)) {
         return true;
       }
+
+      if (this.showFavourites && (this.favourites.includes(alg.case.first + alg.case.second) || (this.allowInverses && this.favourites.includes(alg.case.second + alg.case.first)))) {
+        return true;
+      }
+
       return false;
     });
 
     const newStoredState: CaseControllerProps = {
       letterStates: this.letterStates,
+      favourites: this.favourites,
+      showFavourites: this.showFavourites,
       allowMultiple: this.allowMultiple,
       allowInverses: this.allowInverses
     }

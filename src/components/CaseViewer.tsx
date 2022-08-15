@@ -1,9 +1,12 @@
+import { faThumbTack } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { CaseContext } from "../context/CaseContext";
 import { SettingsContext } from "../context/SettingsContext";
 import { TrainerCard } from "./TrainerCard";
 
 export const CaseViewer = () => {
+  const [_, setRenderState] = useState({});
   const [showAlg, setShowAlg] = useState(false);
   const settingsContext = useContext(SettingsContext);
   const caseContext = useContext(CaseContext);
@@ -49,6 +52,23 @@ export const CaseViewer = () => {
   
   const shouldShowAlg = showAlg || (settingsContext && settingsContext.alwaysShowSolution);
 
+  const setFavorite = () => {
+    const caseIdx = caseContext.caseController!.favourites.findIndex(f => f == caseContext.currentCase!.case.first + caseContext.currentCase!.case.second);
+    if (caseIdx < 0) {
+      caseContext.caseController!.favourites.push(caseContext.currentCase!.case.first + caseContext.currentCase!.case.second);
+    }
+    else {
+      caseContext.caseController!.favourites.splice(caseIdx, 1);
+    }
+
+    caseContext.caseController!.updatePotentialCases();
+    setRenderState({});
+  }
+
+  const getFavourite = () => {
+    return caseContext.caseController?.favourites.find(f => f == caseContext.currentCase!.case.first + caseContext.currentCase!.case.second);
+  }
+
   return (
     <>
       <TrainerCard 
@@ -69,6 +89,14 @@ export const CaseViewer = () => {
       </TrainerCard>
 
       <TrainerCard className="select-none">
+        <div className="card-actions absolute right-3 top-3">
+          <button 
+            className={`btn btn-square ${!getFavourite() && "btn-ghost" || "btn-primary"}`}
+            onClick={setFavorite}
+          >
+            <FontAwesomeIcon icon={faThumbTack} className="text-center text-2xl" />
+          </button>
+        </div>
         <p className="text-9xl text-center font-bold">{caseString}</p>
       </TrainerCard>
 

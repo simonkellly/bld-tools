@@ -1,3 +1,5 @@
+import { faThumbTack } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from "react";
 import { AlgSheetContext } from "../context/AlgSheetContext";
 import { CaseContext } from "../context/CaseContext";
@@ -18,6 +20,7 @@ export const CaseSelector = () => {
     controller.letterStates.forEach(letterState => {
       letterState.selected = true;
     });
+    controller.showFavourites = true;
     controller.updatePotentialCases();
     update();
   };
@@ -26,6 +29,7 @@ export const CaseSelector = () => {
     controller.letterStates.forEach(letterState => {
       letterState.selected = false;
     });
+    controller.showFavourites = false;
     controller.updatePotentialCases();
     update();
   }
@@ -57,6 +61,19 @@ export const CaseSelector = () => {
             {letterState.letter}
           </button>
         ))}
+
+        <button 
+          className={`btn ${
+            controller.showFavourites ? "btn-success" : "btn-ghost"
+          } btn-block`}
+          onClick={() => {
+            controller.showFavourites = !controller.showFavourites;
+            controller.updatePotentialCases();
+            update();
+          }}
+        >
+          <FontAwesomeIcon icon={faThumbTack} className="text-center mb-0.5"/>
+        </button>
       </div>
       <div className="space-x-3 items-center text-center pt-3">
         <button 
