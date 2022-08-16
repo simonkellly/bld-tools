@@ -71,6 +71,11 @@ export class CaseController {
       return false;
     });
 
+    this.saveState();
+    this.onUpdateCases && this.onUpdateCases(wasEmpty);
+  }
+
+  saveState() {
     const newStoredState: CaseControllerProps = {
       letterStates: this.letterStates,
       favourites: this.favourites,
@@ -80,7 +85,6 @@ export class CaseController {
     }
 
     this.setStoredState(newStoredState);
-    this.onUpdateCases && this.onUpdateCases(wasEmpty);
   }
 
   getNextCase(current?: AlgWrapper): AlgWrapper {

@@ -61,7 +61,7 @@ export const CaseViewer = () => {
       caseContext.caseController!.favourites.splice(caseIdx, 1);
     }
 
-    caseContext.caseController!.updatePotentialCases();
+    caseContext.caseController!.saveState();
     setRenderState({});
   }
 
