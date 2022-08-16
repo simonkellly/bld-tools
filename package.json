@@ -19,7 +19,7 @@
     "@types/three": "^0.143.0",
     "@types/web-bluetooth": "^0.0.15",
     "autoprefixer": "^10.4.7",
-    "cubing": "0.28.0",
+    "cubing": "0.28.2",
     "daisyui": "^2.24.0",
     "patch-package": "^6.4.7",
     "postcss": "^8.4.14",
