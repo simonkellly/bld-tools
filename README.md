@@ -21,9 +21,10 @@ This tool is a trainer for the 3-style method used to solve the 3x3 Rubik's cube
 ## Screenshots
 
 <p float="left">
-  <img src="https://github.com/simonkellly/bld-tools/raw/main/.github/readme/preview-normal.png" width="393" hspace="20"/>
-  <img src="https://github.com/simonkellly/bld-tools/raw/main/.github/readme/preview-dark-mode.png" width="393" hspace="20"/>
+  <img src="https://github.com/simonkellly/bld-tools/raw/main/.github/readme/preview-normal.png" width="350" hspace="20"/>
+  <img src="https://github.com/simonkellly/bld-tools/raw/main/.github/readme/preview-dark-mode.png" width="350" hspace="20"/>
 </p>
+
 ## Contrbuting
 
 If you would like to contribute to this project, feel free! PRs are welcome.
