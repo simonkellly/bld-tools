@@ -1,7 +1,6 @@
 import { Loading } from "./Loading";
 import { ConnectionModal } from "./ConnectionModal";
 import { TrainerUI } from "./TrainerUI";
-import { BluetoothPuzzle } from "cubing/bluetooth";
 import { useEffect, useState } from "react";
 import AlgSheet, { fetchGoogleSheet } from "../utils/alg-sheet";
 import { AlgSheetContext } from "../context/AlgSheetContext";
@@ -11,28 +10,23 @@ import { BTCubeHandler } from "./BTCubeHandler";
 import { CaseController, CaseControllerProps } from "../utils/case-controller";
 import { Toaster } from "react-hot-toast";
 import useStorageState from "react-use-storage-state";
-import { SettingsContext, SettingsProps } from "../context/SettingsContext";
 import { AudioHandler } from "./AudioHandler";
 import { HelpModal } from "./HelpModal";
 import { useAudioStore } from "../stores/audio-store";
+import { useSettingsStore } from "../stores/settings-store";
 
 export const Trainer = () => {
-  const [helpOpen, setHelpOpen] = useState(false);
   const [algSheet, setAlgSheet] = useState<AlgSheet>();
   const [currentCase, setCurrentCase] = useState<AlgWrapper>();
   const [caseController, setCaseController] = useState<CaseController>();
   const [resetListeners] = useState<(() => void)[]>([]);
-  const [showSolution, setShowSolution] = useStorageState("showSolution", false);
-  const [darkMode, setDarkMode] = useStorageState("darkMode", false);
-  const [ttsEnabled, setTtsEnabled] = useStorageState("tts", false);
-  const [ttsVolume, setTtsVolume] = useStorageState("ttsVolume", 50);
 
   const [_, setRender] = useState({});
   const [clicked, setClicked] = useState(false);
 
   // ============================================================
-  const toSay = useAudioStore((store: any) => store.toSay);
-
+  const toSay = useAudioStore(store => store.toSay);
+  const darkMode = useSettingsStore(store => store.darkMode);
 
   const forceRender = () => setRender({});
 
@@ -82,19 +76,6 @@ export const Trainer = () => {
     addRetryListener: (resetListener: () => void) => resetListeners.push(resetListener),
   }
 
-  const settingsContextValue: SettingsProps = {
-    helpOpen: helpOpen,
-    setHelpOpen: setHelpOpen,
-    alwaysShowSolution: showSolution,
-    setAlwaysShowSolution: setShowSolution,
-    darkMode: darkMode,
-    setDarkMode: setDarkMode,
-    ttsEnabled: ttsEnabled,
-    setTtsEnabled: setTtsEnabled,
-    volume: ttsVolume,
-    setVolume: setTtsVolume,
-  }
-
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
   })
@@ -114,7 +95,6 @@ export const Trainer = () => {
 
   if (!algSheet || !currentCase) return <Loading />;
   return (
-    <SettingsContext.Provider value={settingsContextValue}>
       <AlgSheetContext.Provider value={{ algSheet }}>
           <CaseContext.Provider value={caseContextValue}>
               {clicked && <AudioHandler />}
@@ -129,6 +109,5 @@ export const Trainer = () => {
               </div>
           </CaseContext.Provider>
       </AlgSheetContext.Provider>
-    </SettingsContext.Provider>
   );
 };

@@ -1,13 +1,15 @@
 import { useContext } from "react";
-import { SettingsContext } from "../context/SettingsContext";
+import { useSettingsStore } from "../stores/settings-store";
 
 export const HelpModal = () => {
-  const settingsContext = useContext(SettingsContext);
-  if (!settingsContext.helpOpen) return <></>;
+  const helpOpen = useSettingsStore(store => store.helpOpen);
+  const closeHelp = useSettingsStore(store => store.closeHelp);
+
+  if (!helpOpen) return <></>;
   return (
     <div
       className="modal modal-bottom sm:modal-middle modal-open"
-      onClick={() => settingsContext.setHelpOpen!(false)}
+      onClick={closeHelp}
     >
       <div className="modal-box">
         <h3 className="font-bold text-lg">BLD Tools</h3>

@@ -2,15 +2,16 @@ import { faThumbTack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { CaseContext } from "../context/CaseContext";
-import { SettingsContext } from "../context/SettingsContext";
+import { useSettingsStore } from "../stores/settings-store";
 import { TrainerCard } from "./TrainerCard";
 
 export const CaseViewer = () => {
   const [_, setRenderState] = useState({});
   const [showAlg, setShowAlg] = useState(false);
-  const settingsContext = useContext(SettingsContext);
   const caseContext = useContext(CaseContext);
   const currentAlg = caseContext.currentCase!;
+
+  const showSolution = useSettingsStore(state => state.showSolution);
 
 
   const algString = currentAlg ? currentAlg.string : "MISSING";
@@ -50,7 +51,7 @@ export const CaseViewer = () => {
     };
   }, []);
   
-  const shouldShowAlg = showAlg || (settingsContext && settingsContext.alwaysShowSolution);
+  const shouldShowAlg = showAlg || (showSolution);
 
   const setFavorite = () => {
     const caseIdx = caseContext.caseController!.favourites.findIndex(f => f == caseContext.currentCase!.case.first + caseContext.currentCase!.case.second);

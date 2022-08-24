@@ -4,7 +4,7 @@ import {  faCubes,
   faSliders,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { CaseSelector } from "./CaseSelector";
 import { Footer } from "./Footer";
 import { CaseViewer } from "./CaseViewer";

@@ -1,12 +1,18 @@
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
-import useStorageState from "react-use-storage-state";
-import { SettingsContext } from "../context/SettingsContext";
+import { useSettingsStore } from "../stores/settings-store";
 import { TrainerCard } from "./TrainerCard";
 
 export const Settings = () => {
-  const settingsContext = useContext(SettingsContext);
+  const openHelp = useSettingsStore(state => state.openHelp);
+  const darkMode = useSettingsStore(state => state.darkMode);
+  const toggleDarkMode = useSettingsStore(state => state.toggleDarkMode);
+  const showSolution = useSettingsStore(state => state.showSolution);
+  const toggleShowSolution = useSettingsStore(state => state.toggleShowSolution);
+  const tts = useSettingsStore(state => state.tts);
+  const toggleTts = useSettingsStore(state => state.toggleTts);
+  const volume = useSettingsStore(state => state.volume);
+  const setVolume = useSettingsStore(state => state.setVolume);
 
   const resetSettings = () => {
     window.localStorage.clear();
@@ -19,7 +25,7 @@ export const Settings = () => {
         Settings
       </p>
 
-      <button className="btn gap-2" onClick={() => settingsContext.setHelpOpen!(true)}>
+      <button className="btn gap-2" onClick={openHelp}>
         <FontAwesomeIcon icon={faInfoCircle}/>
         About BLD Tools
       </button>
@@ -30,10 +36,8 @@ export const Settings = () => {
           <input
             type="checkbox"
             className="toggle toggle-primary"
-            checked={settingsContext.darkMode}
-            onChange={() =>
-              settingsContext.setDarkMode!(!settingsContext.darkMode)
-            }
+            checked={darkMode}
+            onChange={toggleDarkMode}
           />
         </label>
 
@@ -42,12 +46,8 @@ export const Settings = () => {
           <input
             type="checkbox"
             className="toggle toggle-primary"
-            checked={settingsContext.alwaysShowSolution}
-            onChange={() =>
-              settingsContext.setAlwaysShowSolution!(
-                !settingsContext.alwaysShowSolution
-              )
-            }
+            checked={showSolution}
+            onChange={toggleShowSolution}
           />
         </label>
 
@@ -56,14 +56,12 @@ export const Settings = () => {
           <input
             type="checkbox"
             className="toggle toggle-primary"
-            checked={settingsContext.ttsEnabled}
-            onChange={() =>
-              settingsContext.setTtsEnabled!(!settingsContext.ttsEnabled)
-            }
+            checked={tts}
+            onChange={toggleTts}
           />
         </label>
 
-        {settingsContext.ttsEnabled && (
+        {tts && (
           <>
             <label className="label">
               <span className="label-text">TTS volume</span>
@@ -72,9 +70,9 @@ export const Settings = () => {
               type="range"
               min="0"
               max="100"
-              value={settingsContext.volume}
+              value={volume}
               onChange={(e) =>
-                settingsContext.setVolume!(parseInt(e.target.value))
+                setVolume(parseInt(e.target.value))
               }
               className="range range-xs range-primary"
             />

@@ -1,7 +1,6 @@
 import { faThumbTack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from "react";
-import { AlgSheetContext } from "../context/AlgSheetContext";
 import { CaseContext } from "../context/CaseContext";
 import { TrainerCard } from "./TrainerCard";
 
