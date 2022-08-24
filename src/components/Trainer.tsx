@@ -5,7 +5,6 @@ import { BluetoothPuzzle } from "cubing/bluetooth";
 import { useEffect, useState } from "react";
 import AlgSheet, { fetchGoogleSheet } from "../utils/alg-sheet";
 import { AlgSheetContext } from "../context/AlgSheetContext";
-import { BTCubeContext } from "../context/BTCubeContext";
 import { CaseContext, CaseProps } from "../context/CaseContext";
 import AlgWrapper from "../utils/alg-wrapper";
 import { BTCubeHandler } from "./BTCubeHandler";
@@ -19,7 +18,6 @@ import { useAudioStore } from "../stores/audio-store";
 
 export const Trainer = () => {
   const [helpOpen, setHelpOpen] = useState(false);
-  const [btCube, setBtCube] = useState<BluetoothPuzzle>();
   const [algSheet, setAlgSheet] = useState<AlgSheet>();
   const [currentCase, setCurrentCase] = useState<AlgWrapper>();
   const [caseController, setCaseController] = useState<CaseController>();
@@ -32,7 +30,7 @@ export const Trainer = () => {
   const [_, setRender] = useState({});
   const [clicked, setClicked] = useState(false);
 
-  ////////////////////////////////////////////////////////////////////////////////
+  // ============================================================
   const toSay = useAudioStore((store: any) => store.toSay);
 
 
@@ -118,7 +116,6 @@ export const Trainer = () => {
   return (
     <SettingsContext.Provider value={settingsContextValue}>
       <AlgSheetContext.Provider value={{ algSheet }}>
-        <BTCubeContext.Provider value={{ btCube, setBtCube }}>
           <CaseContext.Provider value={caseContextValue}>
               {clicked && <AudioHandler />}
               <BTCubeHandler/>
@@ -131,7 +128,6 @@ export const Trainer = () => {
                 <ConnectionModal />
               </div>
           </CaseContext.Provider>
-        </BTCubeContext.Provider>
       </AlgSheetContext.Provider>
     </SettingsContext.Provider>
   );

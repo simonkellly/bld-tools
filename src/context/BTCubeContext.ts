@@ -6,4 +6,4 @@ interface BTCubeProps {
   setBtCube?: (btCube: BluetoothPuzzle) => any;
 }
 
-export const BTCubeContext = createContext<BTCubeProps>({});
+const BTCubeContext = createContext<BTCubeProps>({});

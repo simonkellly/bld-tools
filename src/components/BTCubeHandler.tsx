@@ -2,18 +2,19 @@ import { MoveEvent } from "cubing/bluetooth";
 import { useContext, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { RingBuffer } from "ring-buffer-ts";
-import { BTCubeContext } from "../context/BTCubeContext";
 import { CaseContext } from "../context/CaseContext";
 import { useAudioStore } from "../stores/audio-store";
+import { useBTCubeStore } from "../stores/bt-cube-store";
 import AlgWrapper from "../utils/alg-wrapper";
 import { didSolve, KState } from "../utils/cube-utils";
 
 export const BTCubeHandler = () => {
   const [moveBuffer] = useState<RingBuffer<string>>(new RingBuffer(8));
-  const btCubeContext = useContext(BTCubeContext);
   const caseContext = useContext(CaseContext);
 
-  const toSay = useAudioStore((store: any) => store.toSay);
+  const toSay = useAudioStore((store) => store.toSay);
+  const btCube = useBTCubeStore((store) => store.btCube);
+  const setBtCube = useBTCubeStore((store) => store.setBtCube);
 
   const currentCase = useRef<AlgWrapper | undefined>(undefined);
   const addedListener = useRef(false);
@@ -52,7 +53,6 @@ export const BTCubeHandler = () => {
   }
 
   const handleCubeState = async () => {
-    const btCube = btCubeContext.btCube;
     const cube = btCube as any;
 
     btCube!.addMoveListener((move: MoveEvent) => {
@@ -90,7 +90,7 @@ export const BTCubeHandler = () => {
       } catch (error: any) {
         console.error(error);
         if (error.toString().includes("GATT Server is disconnected")) {
-          btCubeContext.setBtCube && btCubeContext.setBtCube(undefined as any);
+          setBtCube(null);
           return;
         }
         await new Promise(resolve => setTimeout(resolve, 300));
@@ -101,12 +101,12 @@ export const BTCubeHandler = () => {
   }
 
   useEffect(() => {
-    if (!btCubeContext.btCube) return;
+    if (!btCube) return;
     
-    const cube = btCubeContext.btCube as any;
+    const cube = btCube as any;
     if (cube.intervalHandle) cube.stopTrackingMoves();
     handleCubeState();
-  }, [btCubeContext.btCube]);
+  }, [btCube]);
 
   useEffect(() => {
     if (!caseContext?.addRetryListener || addedListener.current) return;
