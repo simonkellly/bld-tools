@@ -1,5 +1,9 @@
 import create from 'zustand'
 
-export const useAudioStore = create((set) => ({
+interface AudioState {
+  toSay: string[]
+}
+
+export const useAudioStore = create<AudioState>((set) => ({
   toSay: [],
 }))
