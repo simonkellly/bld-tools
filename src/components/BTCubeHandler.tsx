@@ -2,9 +2,9 @@ import { MoveEvent } from "cubing/bluetooth";
 import { useContext, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { RingBuffer } from "ring-buffer-ts";
-import { AudioPlayerContext } from "../context/AudioPlayerContext";
 import { BTCubeContext } from "../context/BTCubeContext";
 import { CaseContext } from "../context/CaseContext";
+import { useAudioStore } from "../stores/audio-store";
 import AlgWrapper from "../utils/alg-wrapper";
 import { didSolve, KState } from "../utils/cube-utils";
 
@@ -12,7 +12,8 @@ export const BTCubeHandler = () => {
   const [moveBuffer] = useState<RingBuffer<string>>(new RingBuffer(8));
   const btCubeContext = useContext(BTCubeContext);
   const caseContext = useContext(CaseContext);
-  const audioContext = useContext(AudioPlayerContext);
+
+  const toSay = useAudioStore((store: any) => store.toSay);
 
   const currentCase = useRef<AlgWrapper | undefined>(undefined);
   const addedListener = useRef(false);
@@ -24,8 +25,8 @@ export const BTCubeHandler = () => {
     if (moves.includes("D' D' D' D'")) {
       caseContext.retryCase!();
       moveBuffer.clear();
-      audioContext.toSay.push("Reset");
-      audioContext.toSay.push("_" + currentCase.current?.case.first + " " + "_" + currentCase.current?.case.second);
+      toSay.push("Reset");
+      toSay.push("_" + currentCase.current?.case.first + " " + "_" + currentCase.current?.case.second);
       toast("Retrying case", { duration: 2000 });
       return;
     }
@@ -35,8 +36,8 @@ export const BTCubeHandler = () => {
       caseContext.setCurrentCase!(nextCase);
       moveBuffer.clear();
       toast("Skipping case", { duration: 2000 });
-      audioContext.toSay.push("Skipping");
-      audioContext.toSay.push("_" + nextCase.case.first + " " + "_" + nextCase.case.second);
+      toSay.push("Skipping");
+      toSay.push("_" + nextCase.case.first + " " + "_" + nextCase.case.second);
       return;
     }
 
@@ -44,7 +45,7 @@ export const BTCubeHandler = () => {
       const hint = currentCase.current?.expanded?.split(" ")[0]!;
       moveBuffer.clear();
       toast(`Hint: ${hint}`, { duration: 2000 });
-      audioContext.toSay.push(hint + "_");
+      toSay.push(hint + "_");
       
       return;
     }
@@ -82,7 +83,7 @@ export const BTCubeHandler = () => {
           const nextCase = caseContext.caseController!.getNextCase!(currentCase.current);
           caseContext.setCurrentCase!(nextCase);
           originalState.current = currentState;
-          audioContext.toSay.push("_" + nextCase.case.first + " " + "_" + nextCase.case.second);
+          toSay.push("_" + nextCase.case.first + " " + "_" + nextCase.case.second);
           continue;
         }
 
