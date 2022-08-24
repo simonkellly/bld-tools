@@ -14,8 +14,8 @@ import { Toaster } from "react-hot-toast";
 import useStorageState from "react-use-storage-state";
 import { SettingsContext, SettingsProps } from "../context/SettingsContext";
 import { AudioHandler } from "./AudioHandler";
-import { AudioPlayerContext, AudioPlayerProps } from "../context/AudioPlayerContext";
 import { HelpModal } from "./HelpModal";
+import { useAudioStore } from "../stores/audio-store";
 
 export const Trainer = () => {
   const [helpOpen, setHelpOpen] = useState(false);
@@ -31,6 +31,10 @@ export const Trainer = () => {
 
   const [_, setRender] = useState({});
   const [clicked, setClicked] = useState(false);
+
+  ////////////////////////////////////////////////////////////////////////////////
+  const toSay = useAudioStore((store: any) => store.toSay);
+
 
   const forceRender = () => setRender({});
 
@@ -97,12 +101,6 @@ export const Trainer = () => {
     document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
   })
 
-  const [toSay, setToStay] = useState<string[]>([]);
-
-  const audioContextValue: AudioPlayerProps = {
-    toSay: toSay
-  }
-
   const [storedState, setStoredState] = useStorageState<CaseControllerProps>("case-controller", {});
 
   useEffect(() => {
@@ -122,7 +120,6 @@ export const Trainer = () => {
       <AlgSheetContext.Provider value={{ algSheet }}>
         <BTCubeContext.Provider value={{ btCube, setBtCube }}>
           <CaseContext.Provider value={caseContextValue}>
-            <AudioPlayerContext.Provider value={audioContextValue}>
               {clicked && <AudioHandler />}
               <BTCubeHandler/>
               <div className="flex h-screen bg-base-300 overflow-y-scroll	overflow-visible">
@@ -133,7 +130,6 @@ export const Trainer = () => {
                 <HelpModal />
                 <ConnectionModal />
               </div>
-            </AudioPlayerContext.Provider>
           </CaseContext.Provider>
         </BTCubeContext.Provider>
       </AlgSheetContext.Provider>

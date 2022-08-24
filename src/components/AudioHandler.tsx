@@ -1,10 +1,12 @@
 import { useContext, useEffect, useRef } from "react";
-import { AudioPlayerContext } from "../context/AudioPlayerContext";
 import { SettingsContext } from "../context/SettingsContext";
+import { useAudioStore } from "../stores/audio-store";
 
 export const AudioHandler = () => {
-  const audioPlayerContext = useContext(AudioPlayerContext);
+  const toSay  = useAudioStore((store: any) => store.toSay);
+
   const settingsContext = useContext(SettingsContext);
+
 
   const settings = useRef(settingsContext);
   const speech = useRef(new SpeechSynthesisUtterance());
@@ -28,8 +30,8 @@ export const AudioHandler = () => {
     while(true) {
       await new Promise(resolve => setTimeout(resolve));
       if (speech.current.voice == null) continue
-      while(audioPlayerContext.toSay.length > 0) {
-        const phrase = audioPlayerContext.toSay.shift();
+      while(toSay.length > 0) {
+        const phrase = toSay.shift();
         phrase && await sayPhrase(phrase);
       }
     }
