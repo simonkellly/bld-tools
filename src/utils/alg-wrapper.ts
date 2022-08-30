@@ -16,8 +16,16 @@ class AlgWrapper {
     this.case = algCase;
     this.alg = alg!;
     this.string = alg.toString();
-    this.expanded = alg.expand().simplify().toString();
     this.inverse = alg.invert();
+    this.getExpanded();
+  }
+
+  getExpanded(): void {
+    let algStr = this.alg?.expand().simplify().toString();
+    algStr = algStr.replace("3", "'");
+    algStr = algStr.replace("''", "");
+
+    this.expanded = new Alg.Alg(algStr).expand().simplify().toString();;
   }
 }
 
