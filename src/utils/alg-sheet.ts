@@ -2,7 +2,7 @@ import * as Alg from "cubing/alg";
 import AlgWrapper from "./alg-wrapper";
 
 const SHEET_ID = "1NEYh8MeTqHwnwA4s_CAYBGWU76pqdlutxR0SA2hNZKk";
-const SHEET_NAME = "UFR Corners";
+export const SHEET_NAME = "UFR Corners";
 
 declare type AlgSet = {
   [letter: string]: AlgWrapper;
@@ -79,8 +79,8 @@ export default class AlgSheet {
   }
 }
 
-export async function fetchGoogleSheet(): Promise<AlgSheet> {
-  const apiURL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${SHEET_NAME}`;
+export async function fetchGoogleSheet(sheetName: string): Promise<AlgSheet> {
+  const apiURL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?sheet=${sheetName}`;
   const sheetReq = await fetch(apiURL);
   const sheetData = await sheetReq.text();
 

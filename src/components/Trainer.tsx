@@ -2,7 +2,7 @@ import { Loading } from "./Loading";
 import { ConnectionModal } from "./ConnectionModal";
 import { TrainerUI } from "./TrainerUI";
 import { useEffect, useState } from "react";
-import AlgSheet, { fetchGoogleSheet } from "../utils/alg-sheet";
+import AlgSheet, { fetchGoogleSheet, SHEET_NAME } from "../utils/alg-sheet";
 import { AlgSheetContext } from "../context/AlgSheetContext";
 import { CaseContext, CaseProps } from "../context/CaseContext";
 import AlgWrapper from "../utils/alg-wrapper";
@@ -14,8 +14,12 @@ import { AudioHandler } from "./AudioHandler";
 import { HelpModal } from "./HelpModal";
 import { useAudioStore } from "../stores/audio-store";
 import { useSettingsStore } from "../stores/settings-store";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const Trainer = () => {
+  const params = useParams();
+  const sheetName = params.sheet || SHEET_NAME;
+
   const [algSheet, setAlgSheet] = useState<AlgSheet>();
   const [currentCase, setCurrentCase] = useState<AlgWrapper>();
   const [caseController, setCaseController] = useState<CaseController>();
@@ -37,11 +41,11 @@ export const Trainer = () => {
 
   useEffect(() => {
     document.addEventListener('click', handleClick);
-    
   }, []);
 
   useEffect(() => {
-    fetchGoogleSheet().then(setAlgSheet);
+    console.log(sheetName)
+    fetchGoogleSheet(sheetName).then(setAlgSheet);
   }, []);
 
   const nextCase = () => {
@@ -80,7 +84,7 @@ export const Trainer = () => {
     document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
   })
 
-  const [storedState, setStoredState] = useStorageState<CaseControllerProps>("case-controller", {});
+  const [storedState, setStoredState] = useStorageState<CaseControllerProps>("case-controller" + sheetName, {});
 
   useEffect(() => {
     if (!algSheet) return;

@@ -1,5 +1,6 @@
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 import { useSettingsStore } from "../stores/settings-store";
 import { TrainerCard } from "./TrainerCard";
 
@@ -13,6 +14,12 @@ export const Settings = () => {
   const toggleTts = useSettingsStore(state => state.toggleTts);
   const volume = useSettingsStore(state => state.volume);
   const setVolume = useSettingsStore(state => state.setVolume);
+  const navigate = useNavigate();
+
+  const nav = (path: string) => {
+    navigate(path);
+    location.reload();
+  }
 
   const resetSettings = () => {
     window.localStorage.clear();
@@ -29,6 +36,15 @@ export const Settings = () => {
         <FontAwesomeIcon icon={faInfoCircle}/>
         About BLD Tools
       </button>
+
+      <button className="btn btn-primary gap-2 mt-1" onClick={() => nav("/UFR Corners/")}>
+        Use UFR Corners
+      </button>
+
+      <button className="btn btn-primary gap-2 mt-1" onClick={() => nav("/UF Edges/")}>
+        Use UF Edges
+      </button>
+      
 
       <div className="form-control">
         <label className="label cursor-pointer">
