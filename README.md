@@ -9,7 +9,7 @@ This tool is a trainer for the 3-style method used to solve the 3x3 Rubik's cube
 [View the site at https://simonkellly.github.io/bld-tools](https://simonkellly.github.io/bld-tools/)
 
 ## Features
-- UFR Corner commutators
+- UFR Corner and UF Edge commutators
 - Hiding and showing case solution
 - Commutator expander
 - Specific set selection
