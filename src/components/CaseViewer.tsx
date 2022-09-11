@@ -40,6 +40,11 @@ export const CaseViewer = () => {
         e.preventDefault();
         setShowAlg(false);
       }
+
+      if (e.key == "Enter") {
+        e.preventDefault();
+        caseContext.completeCase && caseContext.completeCase();
+      }
     }
   
     document.body.addEventListener('keydown', handleDown);
