@@ -461,10 +461,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^18.0.18":
-  version "18.0.18"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.18.tgz#9f16f33d57bc5d9dca848d12c3572110ff9429ac"
-  integrity sha512-6hI08umYs6NaiHFEEGioXnxJ+oEhY3eRz8VCUaudZmGdtvPviCJB8mgaMxaDWAdPSYd4eFavrPk2QIolwbLYrg==
+"@types/react@*", "@types/react@^18.0.19":
+  version "18.0.19"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.19.tgz#269a5f35b9a73c69dfb0c7189017013ab02acbaa"
+  integrity sha512-BDc3Q+4Q3zsn7k9xZrKfjWyJsSlEDMs38gD1qp2eDazLCdcPqAT+vq1ND+Z8AGel/UiwzNUk8ptpywgNQcJ1MQ==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -855,10 +855,10 @@ cubing@0.28.0:
     jest-environment-jsdom "^28.1.3"
     three "^0.142.0"
 
-daisyui@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-2.24.0.tgz#7eacfc943815979227cf50b98f7df622c2814118"
-  integrity sha512-Fdu/4LCdTfWLWAbCuPxvnaRotEfJ+hVPgZ2kv/aUk9RZ00Yk8fGdJtIf0kXJ3IgUKOr8rCXUpfQY6DQU9usPCQ==
+daisyui@^2.25.0:
+  version "2.25.0"
+  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-2.25.0.tgz#9a7931cf1d8776a43ab24a41262c82af433bb283"
+  integrity sha512-tv2sFHMOCEr+3A2JOFMaFjV6O/tkXYrytCSptXU8GRS7FDCR0pUmHA/o6K+3nydor7rQ06gMyVbCDHE9WdMW0Q==
   dependencies:
     color "^4.2"
     css-selector-tokenizer "^0.8.0"
@@ -1768,10 +1768,10 @@ quick-lru@^5.1.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-5.1.1.tgz#366493e6b3e42a3a6885e2e99d18f80fb7a8c932"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
-react-daisyui@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/react-daisyui/-/react-daisyui-2.3.2.tgz#c6837623e72d09a659d61e25cb57828f2cea18ed"
-  integrity sha512-mX2zGWN59HLxFZ1hsgQRMw+84cug122hzU8mqvor5U9aZGvWDypz5ZcGg7CaYNM3jjzxVtzUhWrUw4ezZaB8hQ==
+react-daisyui@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-daisyui/-/react-daisyui-2.4.0.tgz#0fc0ab3b28aca22be025b4de558f675c468c9ce5"
+  integrity sha512-LNGVi24ak8ZpHOb8NjxH4d9mjoUt24G5XZsNWi4j5uY4M2VqWc8c7wRBIactfdHpu88tbgsspBBIJXBl67kH1w==
 
 react-dom@^18.2.0:
   version "18.2.0"
