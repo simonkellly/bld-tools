@@ -31,7 +31,7 @@
     "react-router-dom": "^6.4.2",
     "react-use-storage-state": "^1.0.3",
     "ring-buffer-ts": "^1.0.3",
-    "tailwindcss": "^3.1.8",
+    "tailwindcss": "^3.2.0",
     "three": "^0.145.0",
     "zustand": "^4.1.1"
   },
