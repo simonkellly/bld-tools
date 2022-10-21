@@ -53,7 +53,11 @@ export const Trainer = () => {
   }
 
   const doneCase = () => {
-    caseController && setCurrentCase(caseController.getNextCase(currentCase));
+    if (!caseController) return;
+    const upcomingCase = caseController.getNextCase(currentCase)
+    caseController && setCurrentCase(upcomingCase);
+
+    toSay.push("_" + upcomingCase.case.first + " " + "_" + upcomingCase.case.second);
   }
 
   const resetCases = () => {
