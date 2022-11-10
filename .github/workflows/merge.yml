@@ -4,7 +4,7 @@ on: [push, pull_request]
 jobs:
   automerge:
     runs-on: ubuntu-latest
-    github-token: github.token
+    github-token: ${{ github.token  }}
 
     permissions:
       pull-requests: write
