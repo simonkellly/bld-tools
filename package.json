@@ -22,7 +22,7 @@
     "cubing": "0.28.0",
     "daisyui": "^2.39.0",
     "patch-package": "^6.5.0",
-    "postcss": "^8.4.14",
+    "postcss": "^8.4.19",
     "postinstall-postinstall": "^2.1.0",
     "react": "^18.2.0",
     "react-daisyui": "^2.4.6",
