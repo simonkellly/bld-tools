@@ -1712,7 +1712,7 @@ postcss-value-parser@^4.0.0, postcss-value-parser@^4.2.0:
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz#723c09920836ba6d3e5af019f92bc0971c02e514"
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
-postcss@^8.4.18, postcss@^8.4.20:
+postcss@^8.4.18, postcss@^8.4.19, postcss@^8.4.20:
   version "8.4.20"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.20.tgz#64c52f509644cecad8567e949f4081d98349dc56"
   integrity sha512-6Q04AXR1212bXr5fh03u8aAwbLxAQNGQ/Q1LNa0VfOI06ZAlhPHtQvE4OIdpj4kLThXilalPnmDSOD65DcHt+g==
@@ -1867,10 +1867,10 @@ rimraf@^2.6.3:
   dependencies:
     glob "^7.1.3"
 
-ring-buffer-ts@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/ring-buffer-ts/-/ring-buffer-ts-1.0.3.tgz#a6c40650bba57ae994af067d3ea10108a720db1a"
-  integrity sha512-LCvfEZ+Yth4FxMXJSLTdc0nA9h6cXJua14zu1ljMjRkwSe/GM3PC+mlt/5UL3dqw+1wyy0DtpFKoROO9Pg2Mnw==
+ring-buffer-ts@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ring-buffer-ts/-/ring-buffer-ts-1.1.0.tgz#bd35413c2daa328f9854f2e240b34c6eed208367"
+  integrity sha512-sO7OIAQX2bBfzzxTlU+Y8HIAyQ6584yc/H+1iuOG/Cz32xQ571M9dQgSdU0apnBpAQ/ZjjBe86cY9J8ab6kP2A==
 
 rollup@^3.7.0:
   version "3.7.3"
