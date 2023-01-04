@@ -21,7 +21,7 @@
     "autoprefixer": "^10.4.13",
     "cubing": "0.28.0",
     "daisyui": "^2.46.1",
-    "patch-package": "^6.5.0",
+    "patch-package": "^6.5.1",
     "postcss": "^8.4.20",
     "postinstall-postinstall": "^2.1.0",
     "react": "^18.2.0",
