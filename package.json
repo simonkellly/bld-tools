@@ -20,7 +20,7 @@
     "@types/web-bluetooth": "^0.0.16",
     "autoprefixer": "^10.4.13",
     "cubing": "0.28.0",
-    "daisyui": "^2.46.1",
+    "daisyui": "^2.47.0",
     "patch-package": "^6.5.1",
     "postcss": "^8.4.21",
     "postinstall-postinstall": "^2.1.0",
