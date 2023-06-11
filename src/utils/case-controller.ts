@@ -13,6 +13,7 @@ export interface CaseControllerProps {
   showFavourites?: boolean;
   allowMultiple?: boolean;
   allowInverses?: boolean;
+  remainingCases?: AlgWrapper[];
 }
 
 export class CaseController {
@@ -40,6 +41,7 @@ export class CaseController {
 
     if (storedState.letterStates) {
       this.letterStates = storedState.letterStates;
+      this.remainingCases = storedState.remainingCases || [];
     } else {
       algSheet.letters.forEach(letter => {
         this.letterStates.push({
@@ -81,7 +83,8 @@ export class CaseController {
       favourites: this.favourites,
       showFavourites: this.showFavourites,
       allowMultiple: this.allowMultiple,
-      allowInverses: this.allowInverses
+      allowInverses: this.allowInverses,
+      remainingCases: this.remainingCases
     }
 
     this.setStoredState(newStoredState);
