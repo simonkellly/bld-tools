@@ -1,5 +1,5 @@
 import { BluetoothPuzzle } from 'cubing/dist/types/bluetooth';
-import create from 'zustand'
+import { create } from 'zustand'
 
 interface BTCubeState {
   btCube: BluetoothPuzzle | null;
