@@ -17,11 +17,11 @@ export const AudioHandler = () => {
       return;
     }
 
-    let modPhrase = phrase.replace("_A", "Ahe");
-    modPhrase = modPhrase.replace("'_", " Prime");
-    modPhrase = modPhrase.replace("_", "");
+    let modPhrase = phrase.replaceAll("'_", " Prime");
+    modPhrase = modPhrase.replaceAll("_", "");
 
     speech.current.text = modPhrase;
+    console.log(speech.current);
     window.speechSynthesis.speak(speech.current);
     await new Promise(resolve => speech.current.onend = resolve);
   }
@@ -44,12 +44,15 @@ export const AudioHandler = () => {
 
   useEffect(() => {
     if (init.current.initDone) return;
-    window.speechSynthesis.onvoiceschanged = () => {
-      speech.current.voice = window.speechSynthesis.getVoices()[0];
-    }
-
     speech.current.voice = null;
     speech.current.lang = "en";
+    speech.current.rate *= 1.2;
+    window.speechSynthesis.onvoiceschanged = () => {
+      const voices = window.speechSynthesis.getVoices();
+      const chosenVoice = voices.find(v => v.name == "Google US English") ?? voices[0];
+      speech.current.voice = chosenVoice;
+    }
+
     handleAudio();
     init.current.initDone = true;
   }, []);
