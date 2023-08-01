@@ -91,12 +91,16 @@ export const CaseViewer = () => {
 
       <TrainerCard className="select-none">
         <div className="card-actions absolute right-3 top-3">
-          {!hideFavourite && <button 
-            className={`btn btn-square ${!getFavourite() && "btn-ghost" || "btn-primary"}`}
+          <button 
+            className={[
+              "btn btn-square",
+              !getFavourite() && "btn-ghost" || "btn-primary",
+              hideFavourite && "transition transition-opacity ease-linear opacity-0 hover:opacity-100 duration-100 no-animation" || ""
+            ].join(" ")}
             onClick={setFavorite}
           >
             <FontAwesomeIcon icon={faThumbTack} className="text-center text-2xl" />
-          </button>}
+          </button>
         </div>
         <p className="text-9xl text-center font-bold">{caseString}</p>
       </TrainerCard>
