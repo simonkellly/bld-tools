@@ -12,7 +12,7 @@ export const CaseViewer = () => {
   const currentAlg = caseContext.currentCase!;
 
   const showSolution = useSettingsStore(state => state.showSolution);
-
+  const hideFavourite = useSettingsStore(state => state.hideFavourite);
 
   const algString = currentAlg ? currentAlg.string : "MISSING";
   const caseString = currentAlg
@@ -91,12 +91,12 @@ export const CaseViewer = () => {
 
       <TrainerCard className="select-none">
         <div className="card-actions absolute right-3 top-3">
-          <button 
+          {!hideFavourite && <button 
             className={`btn btn-square ${!getFavourite() && "btn-ghost" || "btn-primary"}`}
             onClick={setFavorite}
           >
             <FontAwesomeIcon icon={faThumbTack} className="text-center text-2xl" />
-          </button>
+          </button>}
         </div>
         <p className="text-9xl text-center font-bold">{caseString}</p>
       </TrainerCard>

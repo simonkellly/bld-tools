@@ -13,6 +13,9 @@ export const Settings = () => {
   const showSolution = useSettingsStore(state => state.showSolution);
   const toggleShowSolution = useSettingsStore(state => state.toggleShowSolution);
   
+  const hideFavourite = useSettingsStore(state => state.hideFavourite);
+  const toggleHideFavourite = useSettingsStore(state => state.toggleHideFavourite);
+  
   const tts = useSettingsStore(state => state.tts);
   const toggleTts = useSettingsStore(state => state.toggleTts);
   
@@ -71,6 +74,16 @@ export const Settings = () => {
             className="toggle toggle-primary"
             checked={showSolution}
             onChange={toggleShowSolution}
+          />
+        </label>
+
+        <label className="label cursor-pointer">
+          <span className="label-text">Hide favourite button</span>
+          <input
+            type="checkbox"
+            className="toggle toggle-primary"
+            checked={hideFavourite}
+            onChange={toggleHideFavourite}
           />
         </label>
 

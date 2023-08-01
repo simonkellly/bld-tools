@@ -9,6 +9,9 @@ interface SettingsState {
   showSolution: boolean;
   toggleShowSolution: () => any;
 
+  hideFavourite: boolean;
+  toggleHideFavourite: () => any;
+
   darkMode: boolean;
   toggleDarkMode: () => any;
 
@@ -29,6 +32,10 @@ export const useSettingsStore = create<SettingsState>()(
       showSolution: false,
       toggleShowSolution: () =>
         set((state) => ({ showSolution: !state.showSolution })),
+
+      hideFavourite: false,
+      toggleHideFavourite: () =>
+        set((state) => ({ hideFavourite: !state.hideFavourite })),
 
       darkMode: false,
       toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
