@@ -6,14 +6,19 @@ import { TrainerCard } from "./TrainerCard";
 
 export const Settings = () => {
   const openHelp = useSettingsStore(state => state.openHelp);
+  
   const darkMode = useSettingsStore(state => state.darkMode);
   const toggleDarkMode = useSettingsStore(state => state.toggleDarkMode);
+  
   const showSolution = useSettingsStore(state => state.showSolution);
   const toggleShowSolution = useSettingsStore(state => state.toggleShowSolution);
+  
   const tts = useSettingsStore(state => state.tts);
   const toggleTts = useSettingsStore(state => state.toggleTts);
+  
   const volume = useSettingsStore(state => state.volume);
   const setVolume = useSettingsStore(state => state.setVolume);
+  
   const navigate = useNavigate();
 
   const nav = (path: string) => {
@@ -37,13 +42,15 @@ export const Settings = () => {
         About BLD Tools
       </button>
 
-      <button className="btn btn-primary gap-2 mt-1" onClick={() => nav("/UFR Corners/")}>
-        Use UFR Corners
-      </button>
+      <div className="grid grid-cols-2 gap-2 mt-2">
+        <button className="btn btn-primary btn-block w-full " onClick={() => nav("/UFR Corners/")}>
+          UFR Corners
+        </button>
 
-      <button className="btn btn-primary gap-2 mt-1" onClick={() => nav("/UF Edges/")}>
-        Use UF Edges
-      </button>
+        <button className="btn btn-primary btn-block w-full " onClick={() => nav("/UF Edges/")}>
+          UF Edges
+        </button>
+      </div>
       
 
       <div className="form-control">
