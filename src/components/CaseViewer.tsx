@@ -95,7 +95,7 @@ export const CaseViewer = () => {
             className={[
               "btn btn-square",
               !getFavourite() && "btn-ghost" || "btn-primary",
-              hideFavourite && "transition transition-opacity ease-linear opacity-0 hover:opacity-100 duration-100 no-animation" || ""
+              hideFavourite && "transition transition-opacity ease-in-out opacity-0 hover:opacity-100 duration-200 no-animation" || ""
             ].join(" ")}
             onClick={setFavorite}
           >
