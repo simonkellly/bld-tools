@@ -695,10 +695,10 @@
   resolved "https://registry.yarnpkg.com/@types/web-bluetooth/-/web-bluetooth-0.0.14.tgz#94e175b53623384bff1f354cdb3197a8d63cdbe5"
   integrity sha512-5d2RhCard1nQUC3aHcq/gHzWYO6K0WJmAbjO7mQJgCQKtZpgXxv1rOM6O/dBDhDYYVutk1sciOgNSe+5YyfM8A==
 
-"@types/web-bluetooth@^0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@types/web-bluetooth/-/web-bluetooth-0.0.18.tgz#74bd1c8fd3a2058cb6fc76b188fcded50a83d866"
-  integrity sha512-v/ZHEj9xh82usl8LMR3GarzFY1IrbXJw5L4QfQhokjRV91q+SelFqxQWSep1ucXEZ22+dSTwLFkXeur25sPIbw==
+"@types/web-bluetooth@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@types/web-bluetooth/-/web-bluetooth-0.0.19.tgz#9babaa5ae90487522bbdd9b3d9225e785d4dbf56"
+  integrity sha512-0Eoq1m8n3qXnV8tUJpL+Dgk09jJOp7IN1kXuwn65+i1VgxzNRW6sArEDrD9uPe5+wgBp3ZNYMAAtrminQf5RjA==
 
 "@types/webxr@*":
   version "0.5.0"
