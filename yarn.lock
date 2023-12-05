@@ -412,11 +412,6 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.19.6.tgz#7134e5dea1f5943b013e96fc34f9638a5f3d7e3e"
   integrity sha512-OE7yIdbDif2kKfrGa+V0vx/B3FJv2L4KnIiLlvtibPyO9UkgO3rzYE0HhpREo2vmJ1Ixq1zwm9/0er+3VOSZJA==
 
-"@fortawesome/fontawesome-common-types@6.5.0":
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.5.0.tgz#5d3912d28a2fb3e6c867320eb27a71f23e7bcb29"
-  integrity sha512-vYC8oN2l8meu05sRi1j3Iie/HNFAeIxpitYFhsUrBc11TxiMken9QdXnSQ0q16FYsOSt/6soxs5ghdk+VYGiog==
-
 "@fortawesome/fontawesome-common-types@6.5.1":
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.5.1.tgz#fdb1ec4952b689f5f7aa0bffe46180bb35490032"
@@ -733,10 +728,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^18.2.41":
-  version "18.2.41"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.41.tgz#9eea044246bdb10510df89ef7f8422a8b6ad8fb9"
-  integrity sha512-CwOGr/PiLiNBxEBqpJ7fO3kocP/2SSuC9fpH5K7tusrg4xPSRT/193rzolYwQnTN02We/ATXKnb6GqA5w4fRxw==
+"@types/react@*", "@types/react@^18.2.42":
+  version "18.2.42"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.42.tgz#6f6b11a904f6d96dda3c2920328a97011a00aba7"
+  integrity sha512-c1zEr96MjakLYus/wPnuWDo1/zErfdU9rNsIGmE+NV71nx88FG9Ttgo5dqorXTu/LImX2f63WBP986gJkMPNbA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
