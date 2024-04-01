@@ -16,7 +16,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@types/three": "^0.162.0",
+    "@types/three": "^0.163.0",
     "@types/web-bluetooth": "^0.0.20",
     "autoprefixer": "^10.4.19",
     "cubing": "0.28.0",
