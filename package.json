@@ -32,7 +32,7 @@
     "react-use-storage-state": "^1.0.6",
     "ring-buffer-ts": "^1.2.0",
     "tailwindcss": "^3.4.3",
-    "three": "^0.164.0",
+    "three": "^0.164.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
