@@ -2526,9 +2526,9 @@ yaml@^2.1.1, yaml@^2.2.2:
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.2.2.tgz#ec551ef37326e6d42872dad1970300f8eb83a073"
   integrity sha512-CBKFWExMn46Foo4cldiChEzn7S7SRV+wqiluAb6xmueD/fGyRHIhX8m14vVGgeFWjN540nKCNVj6P21eQjgTuA==
 
-zustand@^4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.5.2.tgz#fddbe7cac1e71d45413b3682cdb47b48034c3848"
-  integrity sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==
+zustand@^4.5.3:
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.5.3.tgz#02b25c9227c96c6c1f1c7873d91e69f252d46755"
+  integrity sha512-iH1gA/3uOMR0Gz260Fsklxo7wWEXJ008p1bO9O6gxwkbvBUaTDlcVChkDKGGSsvdbOyVce0nQfBitVH6sbYyew==
   dependencies:
     use-sync-external-store "1.2.0"
