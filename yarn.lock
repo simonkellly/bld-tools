@@ -2331,10 +2331,10 @@ three@^0.142.0:
   resolved "https://registry.yarnpkg.com/three/-/three-0.142.0.tgz#89e226a16221f212eb1d40f0786604b711f28aed"
   integrity sha512-ESjPO+3geFr+ZUfVMpMnF/eVU2uJPOh0e2ZpMFqjNca1wApS9lJb7E4MjwGIczgt9iuKd8PEm6Pfgp2bJ92Xtg==
 
-three@^0.166.0:
-  version "0.166.0"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.166.0.tgz#8baa462b03430a87bdcbfed850f4d30fae0359f1"
-  integrity sha512-3Gw7oyZ/vCmz3RmNx1xuyNu7Ou/igDtoh953QsJh/QkAoi6B7jpkKwk05N8Y7/9bZeIE44zdC+i2KZNF+KWQ8A==
+three@^0.166.1:
+  version "0.166.1"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.166.1.tgz#322cfc48fff4e751cd47d61fd1558c387d098d7c"
+  integrity sha512-LtuafkKHHzm61AQA1be2MAYIw1IjmhOUxhBa0prrLpEMWbV7ijvxCRHjSgHPGp2493wLBzwKV46tA9nivLEgKg==
 
 tmp@^0.0.33:
   version "0.0.33"
