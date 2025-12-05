@@ -2129,10 +2129,10 @@ react-daisyui@^3.1.2:
   resolved "https://registry.yarnpkg.com/react-daisyui/-/react-daisyui-3.1.2.tgz#624ae430ec034db6705117028f9b9273068e8a22"
   integrity sha512-Wp4L9rpHyI+k7dQpVk4pXqIDubYlavPWiNBREicpJOUVaGhGv5Zm/OokEahtICYokN8nioVdZ/C2bh9981sPGg==
 
-react-dom@^19.2.0:
-  version "19.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.2.0.tgz#00ed1e959c365e9a9d48f8918377465466ec3af8"
-  integrity sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==
+react-dom@^19.2.1:
+  version "19.2.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.2.1.tgz#ce3527560bda4f997e47d10dab754825b3061f59"
+  integrity sha512-ibrK8llX2a4eOskq1mXKu/TGZj9qzomO+sNfO98M6d9zIPOEhlBkMkBUBLd1vgS0gQsLDBzA+8jJBVXDnfHmJg==
   dependencies:
     scheduler "^0.27.0"
 
