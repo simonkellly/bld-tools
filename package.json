@@ -33,7 +33,7 @@
     "ring-buffer-ts": "^1.2.0",
     "tailwindcss": "^4.2.1",
     "three": "^0.183.2",
-    "zustand": "^5.0.11"
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@types/react": "^19.2.14",
