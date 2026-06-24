@@ -18,7 +18,7 @@
     "@fortawesome/react-fontawesome": "^3.3.1",
     "@types/three": "^0.184.1",
     "@types/web-bluetooth": "^0.0.21",
-    "autoprefixer": "^10.5.0",
+    "autoprefixer": "^10.5.1",
     "cubing": "0.28.0",
     "daisyui": "^2.52.0",
     "patch-package": "^8.0.1",
