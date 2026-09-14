@@ -24,7 +24,7 @@
     "patch-package": "^8.0.1",
     "postcss": "^8.5.28",
     "postinstall-postinstall": "^2.1.0",
-    "react": "^19.2.8",
+    "react": "^19.3.0",
     "react-daisyui": "^3.1.2",
     "react-dom": "^19.2.8",
     "react-hot-toast": "^2.6.0",
@@ -36,7 +36,7 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
-    "@types/react": "^19.2.18",
+    "@types/react": "^19.3.0",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "typescript": "^7.0.2",
