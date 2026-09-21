@@ -27,7 +27,7 @@
     "react": "^19.3.0",
     "react-daisyui": "^3.1.2",
     "react-dom": "^19.3.0",
-    "react-hot-toast": "^2.6.0",
+    "react-hot-toast": "^2.6.1",
     "react-router-dom": "^7.18.4",
     "react-use-storage-state": "^1.0.6",
     "ring-buffer-ts": "^1.2.0",
